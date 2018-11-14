@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_pay/views/indexPage.dart';
 import 'package:quick_pay/views/walletPage.dart';
+import 'package:quick_pay/views/settingPage.dart';
 class HomePage extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -8,17 +9,22 @@ class HomePage extends StatefulWidget {
 
 class HomeState extends State<HomePage> {
   int _tabIndex = 0;
+  var _title = [
+    '首页',
+    '钱包',
+    '设置'
+  ];
   var _body = [
     new IndexPage(),
-    new WalletPage()
-    
+    new WalletPage(),
+    new SettingPage()
   ];  
 
   Widget build(BuildContext context) {
 
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
-        appBar: new AppBar(title: new Text('首页')),
+        appBar: new AppBar(title: new Text(_title[_tabIndex])),
         body: _body[_tabIndex],
         bottomNavigationBar: new BottomNavigationBar(
           items: <BottomNavigationBarItem>[
