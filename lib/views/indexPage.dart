@@ -90,70 +90,83 @@ class IndexState extends State<IndexPage> {
       )
     ],
   );
-  Widget module = new Container(
-    color: Color.fromRGBO(255, 255, 255, 1),
-    child: new Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        new Container(
-          padding: new EdgeInsets.all(20.0),
-          child: new Column(
-            children: <Widget>[
-              new Image.asset(
-                'assets/auth.png',
-                width: 40.0,
-                height: 40.0,
-              ),
-              new Container(
-                margin: new EdgeInsets.only(top: 20.0),
-                child: new Text('实名认证'),
-              )
-            ],
-          ),
-        ),
-        new Container(
-          padding: new EdgeInsets.all(20.0),
-          // decoration: new BoxDecoration(
-          //     border: Border(left: BorderSide(color: Color.fromRGBO(204, 204, 204, 1), width: 1.0),right: BorderSide(color:Color.fromRGBO(204, 204, 204, 1),width: 1.0))),
-          child: new Column(
-            children: <Widget>[
-              new Image.asset(
-                'assets/group.png',
-                width: 40.0,
-                height: 40.0,
-              ),
-              new Container(
-                margin: new EdgeInsets.only(top: 20.0),
-                child: new Text('我的推荐'),
-              )
-            ],
-          ),
-        ),
-        new Container(
-          padding: new EdgeInsets.all(20.0),
-          child: new Column(
-            children: <Widget>[
-              new Image.asset(
-                'assets/recommend.png',
-                width: 40.0,
-                height: 40.0,
-              ),
-              new Container(
-                margin: new EdgeInsets.only(top: 20.0),
-                child: new Text('我的推荐码'),
-              )
-            ],
-          ),
-        )
-      ],
-    ),
-  );
 
-
+  Widget module(BuildContext context) {
+    return new Container(
+      color: Color.fromRGBO(255, 255, 255, 1),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          new GestureDetector(
+            child: new Container(
+              padding: new EdgeInsets.all(20.0),
+              child: new Column(
+                children: <Widget>[
+                  new Image.asset(
+                    'assets/auth.png',
+                    width: 40.0,
+                    height: 40.0,
+                  ),
+                  new Container(
+                    margin: new EdgeInsets.only(top: 20.0),
+                    child: new Text('实名认证'),
+                  )
+                ],
+              ),
+            ),
+            onTap: () {
+              print('去实名认证');
+              Navigator.of(context).pushNamed('/auth_info');
+            },
+          ),
+          new GestureDetector(
+            child: new Container(
+              padding: new EdgeInsets.all(20.0),
+              child: new Column(
+                children: <Widget>[
+                  new Image.asset(
+                    'assets/group.png',
+                    width: 40.0,
+                    height: 40.0,
+                  ),
+                  new Container(
+                    margin: new EdgeInsets.only(top: 20.0),
+                    child: new Text('我的推荐'),
+                  )
+                ],
+              ),
+            ),
+            onTap: () {
+              print('我的推荐');
+            },
+          ),
+          new GestureDetector(
+            child: new Container(
+              padding: new EdgeInsets.all(20.0),
+              child: new Column(
+                children: <Widget>[
+                  new Image.asset(
+                    'assets/recommend.png',
+                    width: 40.0,
+                    height: 40.0,
+                  ),
+                  new Container(
+                    margin: new EdgeInsets.only(top: 20.0),
+                    child: new Text('我的推荐码'),
+                  )
+                ],
+              ),
+            ),
+            onTap: () {},
+          )
+        ],
+      ),
+    );
+  }
 
   Widget build(BuildContext context) {
     return new ListView(
-      children: <Widget>[toper, module],
+      children: <Widget>[toper, module(context)],
     );
   }
 }

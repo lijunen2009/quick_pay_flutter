@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_pay/views/homePage.dart';
+import 'package:quick_pay/views/authInfoPage.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,7 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/homepage':(BuildContext context) =>new HomePage()
+        '/homepage': (BuildContext context) => new HomePage(),
+        '/auth_info': (BuildContext context) => new AuthInfoPage()
       },
       title: '益点闪',
       theme: ThemeData(
@@ -27,7 +30,4 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
     );
   }
-
-
-
 }
