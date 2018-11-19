@@ -73,7 +73,7 @@ class AuthInfoState extends State<AuthInfoPage>{
               ),
             ),
             onTap: (){
-
+              Navigator.of(context).pushNamed('/auth_card');
             },
           )
         ],

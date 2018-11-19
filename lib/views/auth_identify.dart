@@ -30,7 +30,6 @@ class AuthIdentityState extends State<AuthIdentity> {
           new Container(
             child: new TextFormField(
               decoration: InputDecoration(
-
                   labelText: '请输入真实姓名',
                   hintText: '姓名',
                   border: OutlineInputBorder()),

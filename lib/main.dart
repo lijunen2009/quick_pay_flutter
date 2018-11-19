@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_pay/views/homePage.dart';
 import 'package:quick_pay/views/authInfoPage.dart';
 import 'package:quick_pay/views/auth_identify.dart';
-
+import 'package:quick_pay/views/auth_card.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/homepage': (BuildContext context) => new HomePage(),
         '/auth_info': (BuildContext context) => new AuthInfoPage(),
-        '/auth_identify':(BuildContext context)=> new AuthIdentity()
+        '/auth_identify':(BuildContext context)=> new AuthIdentity(),
+        '/auth_card':(BuildContext context)=>new AuthCard()
       },
       title: '益点闪',
       theme: ThemeData(
