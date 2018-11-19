@@ -24,6 +24,7 @@ dependencies:
   fluttertoast: ^2.0.7
   flutter_refresh : ^0.0.1
   shared_preferences: ^0.4.3
+  flutter_picker: ^1.0.3
 
 dev_dependencies:
   flutter_test:

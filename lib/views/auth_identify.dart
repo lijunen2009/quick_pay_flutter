@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
+import 'dart:convert';
 
 class AuthIdentity extends StatefulWidget {
   AuthIdentityState createState() => AuthIdentityState();
@@ -10,17 +12,56 @@ class AuthIdentityState extends State<AuthIdentity> {
   String _color;
   String _config;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  var PickerData = '''
+    [
+    [
+        1,
+        2,
+        3,
+        4
+    ],
+    [
+        11,
+        22,
+        33,
+        44
+    ],
+    [
+        "aaa",
+        "bbb",
+        "ccc"
+    ]
+]
+    ''';
+
+  showPicker(BuildContext context) {
+    new Picker(
+        adapter: PickerDataAdapter<String>(
+            pickerdata: new JsonDecoder().convert(PickerData), isArray: true),
+        changeToFirst: true,
+        hideHeader: false,
+        confirmText: '确定',
+        confirmTextStyle: new TextStyle(color: Colors.blue),
+        cancelText: '取消',
+        cancelTextStyle: new TextStyle(color: Colors.blue),
+        onConfirm: (Picker picker, List value) {
+          print(value.toString());
+          print(picker.adapter.text);
+        }).showModal(this.context); //
+  }
 
   void _onSubmit() {
     final form = _formKey.currentState;
-    print(form);
-    if(form.validate()) {
+    if (form.validate()) {
       form.save();
-      showDialog(context: context, builder: (ctx)=> new AlertDialog(
-        content:  new Text('$_name $_identify'),
-      ));
+      showDialog(
+          context: context,
+          builder: (ctx) => new AlertDialog(
+                content: new Text('$_name $_identify'),
+              ));
     }
   }
+
   Widget build(BuildContext context) {
     Widget _form = new Form(
       autovalidate: true,
@@ -30,7 +71,6 @@ class AuthIdentityState extends State<AuthIdentity> {
           new Container(
             child: new TextFormField(
               decoration: InputDecoration(
-
                   labelText: '请输入真实姓名',
                   hintText: '姓名',
                   border: OutlineInputBorder()),
@@ -44,8 +84,8 @@ class AuthIdentityState extends State<AuthIdentity> {
           new Container(
             margin: new EdgeInsets.all(10.0),
             child: new TextFormField(
-              onSaved: (val)=>this._identify = val,
-              validator: (v)=>(v == null ||v.isEmpty) ? '请输入身份证号' : null,
+              onSaved: (val) => this._identify = val,
+              validator: (v) => (v == null || v.isEmpty) ? '请输入身份证号' : null,
               keyboardType: TextInputType.text,
               maxLength: 20,
               decoration: new InputDecoration(
@@ -53,9 +93,36 @@ class AuthIdentityState extends State<AuthIdentity> {
                 hintText: '身份证',
                 labelText: '请输入身份证号码',
               ),
-
             ),
           ),
+          new Container(
+            height: 60.0,
+            margin: new EdgeInsets.all(10.0),
+
+            alignment: AlignmentDirectional(0, 0),
+            padding: new EdgeInsets.all(10.0),
+            decoration: new BoxDecoration(border:Border.all(color: Color.fromRGBO(129, 129, 129, 1),width: 1.0),borderRadius: BorderRadius.all(Radius.circular(3.0))),
+            child: new GestureDetector(
+              child:new Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Text('请选择所属银行 ',style: new TextStyle(color: Color.fromRGBO(137, 137, 137, 1),fontSize: 15.0,),),
+                ],
+              ),
+              onTap: (){
+                showPicker(context);
+              },
+            ),
+          ),
+          new Container(
+            child: new RaisedButton(
+              child: new Text('点击'),
+              onPressed: () {
+//
+                showPicker(context);
+              },
+            ),
+          )
         ],
       ),
     );
