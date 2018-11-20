@@ -38,9 +38,7 @@ class AuthCardState extends State{
             ),
             margin: new EdgeInsets.all(15.0),
           ),
-          new Container(
-            child: new BottomSheet(onClosing: (){}, builder:null),
-          )
+          
         ],
       ),
     );
