@@ -8,6 +8,8 @@ class AuthCard extends StatefulWidget{
 
 class AuthCardState extends State{
   String _cardNo;
+  String _openCity = '请选择开户城市';
+  String _bankName = '请选择所属银行';
   GlobalKey<FormState> _fromKey = new GlobalKey<FormState>();
   var PickerData = '''
    [
@@ -39,8 +41,12 @@ class AuthCardState extends State{
         cancelText: '取消',
         cancelTextStyle: new TextStyle(color: Colors.blue),
         onConfirm: (Picker picker, List value) {
-          print(value.toString());
-          print(picker.adapter.text);
+          String temp = picker.adapter.text.replaceAll('[', '');
+          temp = temp.replaceAll(']', '');
+          setState(() {
+            _bankName = temp;
+          });
+
         }).showModal(this.context); //
   }
   showCityPicker(BuildContext context) {
@@ -54,9 +60,12 @@ class AuthCardState extends State{
         cancelText: '取消',
         cancelTextStyle: new TextStyle(color: Colors.blue),
         onConfirm: (Picker picker, List value) {
-          print(value);
-          print('value:'+value.toString());
-          print('text:'+picker.adapter.text);
+          String temp = picker.adapter.text.replaceAll('[', '');
+          temp = temp.replaceAll(']', '');
+          List cityList = temp.split(',');
+          setState(() {
+            _openCity = cityList[0]+'  '+cityList[1];
+          });
         }).showModal(this.context); //
   }
 
@@ -94,7 +103,7 @@ class AuthCardState extends State{
               child:new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  new Text('请选择所属银行 ',style: new TextStyle(color: Color.fromRGBO(137, 137, 137, 1),fontSize: 15.0,),),
+                  new Text('$_bankName',style: new TextStyle(color: Color.fromRGBO(137, 137, 137, 1),fontSize: 15.0,),),
                 ],
               ),
               onTap: (){
@@ -112,7 +121,7 @@ class AuthCardState extends State{
               child:new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  new Text('请选择开户城市 ',style: new TextStyle(color: Color.fromRGBO(137, 137, 137, 1),fontSize: 15.0,),),
+                  new Text('$_openCity',style: new TextStyle(color: Color.fromRGBO(137, 137, 137, 1),fontSize: 15.0,),),
                 ],
               ),
               onTap: (){
