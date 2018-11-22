@@ -95,34 +95,7 @@ class AuthIdentityState extends State<AuthIdentity> {
               ),
             ),
           ),
-          new Container(
-            height: 60.0,
-            margin: new EdgeInsets.all(10.0),
 
-            alignment: AlignmentDirectional(0, 0),
-            padding: new EdgeInsets.all(10.0),
-            decoration: new BoxDecoration(border:Border.all(color: Color.fromRGBO(129, 129, 129, 1),width: 1.0),borderRadius: BorderRadius.all(Radius.circular(3.0))),
-            child: new GestureDetector(
-              child:new Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  new Text('请选择所属银行 ',style: new TextStyle(color: Color.fromRGBO(137, 137, 137, 1),fontSize: 15.0,),),
-                ],
-              ),
-              onTap: (){
-                showPicker(context);
-              },
-            ),
-          ),
-          new Container(
-            child: new RaisedButton(
-              child: new Text('点击'),
-              onPressed: () {
-//
-                showPicker(context);
-              },
-            ),
-          )
         ],
       ),
     );
