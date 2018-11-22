@@ -19,7 +19,7 @@ class CashState extends State<CashPage>{
               ),
               new Container(
                 margin: new EdgeInsets.only(top: 10.0),
-                child: new Text('500',style: new TextStyle(color: Colors.red,fontSize: 23),),
+                child: new Text('500',style: new TextStyle(color: Colors.red,fontSize: 28.0),),
               )
             ],
           ),

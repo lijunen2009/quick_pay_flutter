@@ -15,7 +15,7 @@ class WalletState extends State<WalletPage>{
           ),
           new Container(
             padding: new EdgeInsets.only(top: 20.0),
-            child: new Text('500',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 23.0),),
+            child: new Text('500',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 28.0),),
           )
         ],
       ),
@@ -42,7 +42,7 @@ class WalletState extends State<WalletPage>{
             leading: new Icon(Icons.access_time,color: Color.fromRGBO(155, 39, 176, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
-              print('提现记录');
+              Navigator.of(context).pushNamed('cash_log');
             },
           ),
           new Divider(color: Color.fromRGBO(204, 204, 204, 1),),
@@ -51,7 +51,7 @@ class WalletState extends State<WalletPage>{
             leading: new Icon(Icons.wallpaper,color: Color.fromRGBO(255, 193, 7, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
-              print('钱包明细');
+              Navigator.of(context).pushNamed('wallet_log');
             },
           ),
           new Divider(color: Color.fromRGBO(204, 204, 204, 1),),
@@ -60,7 +60,7 @@ class WalletState extends State<WalletPage>{
             leading: new Icon(Icons.card_travel,color: Color.fromRGBO(0, 188, 212, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
-              print('我的银行卡');
+              Navigator.of(context).pushNamed('my_card');
             },
           ),
         ],

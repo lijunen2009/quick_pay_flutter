@@ -64,7 +64,7 @@ class AuthCardState extends State{
           temp = temp.replaceAll(']', '');
           List cityList = temp.split(',');
           setState(() {
-            _openCity = cityList[0]+'  '+cityList[1];
+            _openCity = cityList[0]+''+cityList[1];
           });
         }).showModal(this.context); //
   }
