@@ -31,6 +31,9 @@ class ToastUtil {
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1);
+        timeInSecForIos: 2,
+        bgcolor: '#000000',
+        textcolor: '#ffffff'
+    );
   }
 }

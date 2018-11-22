@@ -3,6 +3,8 @@ import 'package:quick_pay/views/homePage.dart';
 import 'package:quick_pay/views/authInfoPage.dart';
 import 'package:quick_pay/views/auth_identify.dart';
 import 'package:quick_pay/views/auth_card.dart';
+import 'package:quick_pay/views/auth_detail.dart';
+import 'package:quick_pay/views/cash.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -14,7 +16,9 @@ class MyApp extends StatelessWidget {
         '/homepage': (BuildContext context) => new HomePage(),
         '/auth_info': (BuildContext context) => new AuthInfoPage(),
         '/auth_identify':(BuildContext context)=> new AuthIdentity(),
-        '/auth_card':(BuildContext context)=>new AuthCard()
+        '/auth_card':(BuildContext context)=>new AuthCard(),
+        '/auth_detail':(BuildContext context)=>new AuthDetailPage(),
+        '/cash':(BuildContext context)=>new CashPage()
       },
       title: '益点闪',
       theme: ThemeData(
