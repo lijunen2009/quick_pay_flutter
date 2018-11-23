@@ -169,7 +169,9 @@ class IndexState extends State<IndexPage> {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed('my_share');
+            },
           )
         ],
       ),
