@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_pay/util/MyIcon.dart';
 class WalletPage extends StatefulWidget{
   @override
   WalletState createState()=>WalletState();
@@ -29,7 +30,7 @@ class WalletState extends State<WalletPage>{
           new ListTile(
 
             title: new Text('我要提现'),
-            leading: new Icon(Icons.cast,color: Color.fromRGBO(255, 87, 34, 1),),
+            leading: new Icon(MyIcon.take_cash,color: Color.fromRGBO(255, 87, 34, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
               print('我要提现');
@@ -39,7 +40,7 @@ class WalletState extends State<WalletPage>{
           new Divider(color: Color.fromRGBO(204, 204, 204, 1),),
           new ListTile(
             title: new Text('提现记录'),
-            leading: new Icon(Icons.access_time,color: Color.fromRGBO(155, 39, 176, 1),),
+            leading: new Icon(MyIcon.log2,color: Color.fromRGBO(155, 39, 176, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
               Navigator.of(context).pushNamed('cash_log');
@@ -48,7 +49,7 @@ class WalletState extends State<WalletPage>{
           new Divider(color: Color.fromRGBO(204, 204, 204, 1),),
           new ListTile(
             title: new Text('钱包明细'),
-            leading: new Icon(Icons.wallpaper,color: Color.fromRGBO(255, 193, 7, 1),),
+            leading: new Icon(MyIcon.log,color: Color.fromRGBO(255, 193, 7, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
               Navigator.of(context).pushNamed('wallet_log');

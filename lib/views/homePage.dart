@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_pay/views/indexPage.dart';
 import 'package:quick_pay/views/walletPage.dart';
 import 'package:quick_pay/views/settingPage.dart';
+import 'package:quick_pay/util/MyIcon.dart';
 class HomePage extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -24,16 +25,23 @@ class HomeState extends State<HomePage> {
 
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
-        appBar: new AppBar(title: new Text(_title[_tabIndex])),
+        appBar: new AppBar(
+            leading: new Icon(new IconData(0xe601,fontFamily: 'myIcon')),
+            title: new Text(_title[_tabIndex]),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){})
+            ],
+        ),
         body: _body[_tabIndex],
+        
         bottomNavigationBar: new BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             new BottomNavigationBarItem(
                 icon: new Icon(Icons.home), title: const Text('首页')),
             new BottomNavigationBarItem(
-                icon: new Icon(Icons.monetization_on), title: const Text('钱包')),
-            new BottomNavigationBarItem(
-                icon: new Icon(Icons.settings), title: const Text('设置')),
+                icon: new Icon(MyIcon.wallet), title: const Text('钱包')),
+//            new BottomNavigationBarItem(
+//                icon: new Icon(Icons.settings), title: const Text('设置')),
           ],
           //设置显示的模式
           type: BottomNavigationBarType.fixed,
