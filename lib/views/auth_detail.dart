@@ -5,7 +5,7 @@ class AuthDetailPage extends StatefulWidget{
 class AuthDetailState extends State{
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('认证信息'),),
+      appBar: new AppBar(title: new Text('认证信息'),centerTitle: true,),
       body: new Container(
         padding: new EdgeInsets.all(10.0),
         color: Color.fromRGBO(255, 255, 255, 1),

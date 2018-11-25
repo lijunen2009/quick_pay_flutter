@@ -6,7 +6,7 @@ class WalletLogPage extends StatefulWidget{
 class WalletLogState extends State{
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('钱包明细'),),
+      appBar: new AppBar(title: new Text('钱包明细'),centerTitle: true,),
       body: ListView(
         children: <Widget>[
           new ListTile(

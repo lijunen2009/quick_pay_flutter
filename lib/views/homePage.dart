@@ -26,10 +26,12 @@ class HomeState extends State<HomePage> {
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
         appBar: new AppBar(
-            leading: new Icon(new IconData(0xe601,fontFamily: 'myIcon')),
             title: new Text(_title[_tabIndex]),
             actions: <Widget>[
-              new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){})
+              new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){
+                print('我要退出了,baibai');
+                Navigator.of(context).pushNamed('login');
+              })
             ],
         ),
         body: _body[_tabIndex],

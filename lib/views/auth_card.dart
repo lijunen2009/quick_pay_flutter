@@ -143,7 +143,7 @@ class AuthCardState extends State{
     );
 
     return new Scaffold(
-      appBar: new AppBar(title: new Text('收款账号认证'),),
+      appBar: new AppBar(title: new Text('收款账号认证'),centerTitle: true,),
       body:  new Container(
         color: Color.fromRGBO(255, 255, 255, 1),
         child: new ListView(

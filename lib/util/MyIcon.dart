@@ -9,5 +9,7 @@ class MyIcon{
 
   static const IconData bankcard = const IconData(0xe623,fontFamily: _iconfont);
   static const IconData take_cash = const IconData(0xe63e,fontFamily: _iconfont);
+  static const IconData account = const IconData(0xe602,fontFamily: _iconfont);
+  static const IconData password = const IconData(0xe6ab,fontFamily: _iconfont);
 
 }

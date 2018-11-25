@@ -5,7 +5,7 @@ class MyTeamPage extends StatefulWidget{
 class MyTeamState extends State{
   Widget build(BuildContext contexy){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('我的推荐'),),
+      appBar: new AppBar(title: new Text('我的推荐'),centerTitle: true,),
       body: new ListView(
         children: <Widget>[
           new ListTile(

@@ -6,7 +6,7 @@ class CashLogPage extends StatefulWidget{
 class CashLogState extends State{
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('提现记录'),),
+      appBar: new AppBar(title: new Text('提现记录'),centerTitle: true,),
       body: ListView(
         children: <Widget>[
           new ListTile(

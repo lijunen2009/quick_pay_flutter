@@ -58,7 +58,7 @@ class WalletState extends State<WalletPage>{
           new Divider(color: Color.fromRGBO(204, 204, 204, 1),),
           new ListTile(
             title: new Text('我的银行卡'),
-            leading: new Icon(Icons.card_travel,color: Color.fromRGBO(0, 188, 212, 1),),
+            leading: new Icon(MyIcon.bankcard,color: Color.fromRGBO(0, 188, 212, 1),),
             trailing: new Icon(Icons.arrow_right),
             onTap: (){
               Navigator.of(context).pushNamed('my_card');

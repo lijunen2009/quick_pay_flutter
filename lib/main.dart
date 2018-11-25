@@ -10,6 +10,8 @@ import 'package:quick_pay/views/cash_log.dart';
 import 'package:quick_pay/views/my_card.dart';
 import 'package:quick_pay/views/my_team.dart';
 import 'package:quick_pay/views/my_share.dart';
+import 'package:quick_pay/views/login.dart';
+import 'package:quick_pay/views/register.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -28,7 +30,9 @@ class MyApp extends StatelessWidget {
         'cash_log': (BuildContext context) => new CashLogPage(),
         'my_card': (BuildContext context) => new MyCardPage(),
         'my_team':(BuildContext context)=>new MyTeamPage(),
-        'my_share':(BuildContext context)=>new MySharePage()
+        'my_share':(BuildContext context)=>new MySharePage(),
+        'login':(BuildContext context)=>new LoginPage(),
+        'register':(BuildContext context)=>RegisterPage()
       },
       title: '益点闪',
       theme: ThemeData(

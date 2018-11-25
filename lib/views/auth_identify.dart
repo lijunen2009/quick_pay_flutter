@@ -114,7 +114,7 @@ class AuthIdentityState extends State<AuthIdentity> {
       ],
     );
     return new Scaffold(
-      appBar: new AppBar(title: new Text('身份认证')),
+      appBar: new AppBar(title: new Text('身份认证'),centerTitle: true,),
       body: _body,
     );
   }

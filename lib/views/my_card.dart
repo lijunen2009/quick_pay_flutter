@@ -5,7 +5,7 @@ class MyCardPage extends StatefulWidget{
 class MyCardState extends State{
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('我的银行卡'),),
+      appBar: new AppBar(title: new Text('我的银行卡'),centerTitle: true,),
       body: new Container(
         width: double.infinity,
         height: 100,

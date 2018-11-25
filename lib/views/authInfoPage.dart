@@ -7,7 +7,7 @@ class AuthInfoPage extends StatefulWidget{
 class AuthInfoState extends State<AuthInfoPage>{
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('实名认证'),),
+      appBar: new AppBar(title: new Text('实名认证'),centerTitle: true,),
       body: new ListView(
         children: <Widget>[
           new GestureDetector(

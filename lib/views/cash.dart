@@ -105,7 +105,7 @@ class CashState extends State<CashPage>{
   );
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title: new Text('提现'),),
+      appBar: new AppBar(title: new Text('提现'),centerTitle: true,),
       body: new ListView(
 //        padding: new EdgeInsets.all(15.0),
 //        color: Color.fromRGBO(255, 255, 255, 1),
