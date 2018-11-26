@@ -52,7 +52,7 @@ class LoginState extends State {
           autovalidate: true,
         ),
         new Container(
-          margin: new EdgeInsets.only(top: 40.0),
+          margin: new EdgeInsets.only(top: 60.0),
           child: new RaisedButton(
             onPressed: () {
               _onSubmit();
@@ -67,8 +67,13 @@ class LoginState extends State {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Text('注册'),
-              new Text('忘记密码')
+              new GestureDetector(
+                child: new Text('注册',style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),),
+                onTap: (){
+                  Navigator.of(context).pushNamed('register');
+                },
+              ),
+              new Text('忘记密码',style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),)
             ],
           ),
         )

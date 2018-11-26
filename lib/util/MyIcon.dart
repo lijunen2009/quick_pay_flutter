@@ -11,5 +11,7 @@ class MyIcon{
   static const IconData take_cash = const IconData(0xe63e,fontFamily: _iconfont);
   static const IconData account = const IconData(0xe602,fontFamily: _iconfont);
   static const IconData password = const IconData(0xe6ab,fontFamily: _iconfont);
+  static const IconData message = const IconData(0xe638,fontFamily: _iconfont);
+  static const IconData code = const IconData(0xe683,fontFamily: _iconfont);
 
 }
