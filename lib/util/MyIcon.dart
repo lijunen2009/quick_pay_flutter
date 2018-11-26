@@ -13,5 +13,6 @@ class MyIcon{
   static const IconData password = const IconData(0xe6ab,fontFamily: _iconfont);
   static const IconData message = const IconData(0xe638,fontFamily: _iconfont);
   static const IconData code = const IconData(0xe683,fontFamily: _iconfont);
+  static const IconData scan = const IconData(0xe62a,fontFamily: _iconfont);
 
 }

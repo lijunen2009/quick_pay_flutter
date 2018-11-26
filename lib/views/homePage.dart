@@ -26,6 +26,7 @@ class HomeState extends State<HomePage> {
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
         appBar: new AppBar(
+            leading: Icon(MyIcon.scan),
             title: new Text(_title[_tabIndex]),
             actions: <Widget>[
               new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){
