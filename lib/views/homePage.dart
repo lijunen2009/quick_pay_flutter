@@ -28,6 +28,7 @@ class HomeState extends State<HomePage> {
         appBar: new AppBar(
             leading: Icon(MyIcon.scan),
             title: new Text(_title[_tabIndex]),
+            centerTitle: true,
             actions: <Widget>[
               new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){
                 print('我要退出了,baibai');
