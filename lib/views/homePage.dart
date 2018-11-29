@@ -32,6 +32,7 @@ class HomeState extends State<HomePage> {
               new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){
                 print('我要退出了,baibai');
                 Navigator.of(context).pushNamed('login');
+
               })
             ],
         ),
