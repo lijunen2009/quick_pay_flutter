@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quick_pay/util/MyIcon.dart';
-
+import 'package:quick_pay/service/user.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:quick_pay/util/Common.dart';
+import 'dart:convert';
 class LoginPage extends StatefulWidget {
   LoginState createState() => LoginState();
 }
@@ -9,17 +13,34 @@ class LoginState extends State {
   String _name = '';
   String _password = '';
   GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
-  _onSubmit(){
-    final form =  _formkey.currentState;
-    if(form.validate()){
+
+  _onSubmit(BuildContext context) {
+    final form = _formkey.currentState;
+    if (form.validate()) {
       form.save();
-      showDialog(
-          context: context,
-          builder: (ctx) => new AlertDialog(
-            content: new Text('$_name $_password'),
-          ));
+      Common.showLoading(context);
+      _login(context);
     }
   }
+
+  _login(BuildContext context) async {
+    Map result = await login(_name, _password);
+    if (result['status'] == 200) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', result['result'].toString());
+      var info = prefs.getString('token');
+      print(info);
+      print(info.runtimeType);
+
+
+      Common.closeLoading(context);
+//      Navigator.of(context).pushReplacementNamed('/homepage');
+
+    } else {
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
+  }
+
   Widget _body(BuildContext context) {
     return new ListView(
       children: <Widget>[
@@ -33,8 +54,9 @@ class LoginState extends State {
                     labelText: '账号'),
                 maxLength: 11,
                 keyboardType: TextInputType.number,
-                onSaved: (val)=>this._name = val,
-                validator: (val)=>(val == null || val.isEmpty) ? '请输入账号' : null,
+                onSaved: (val) => this._name = val,
+                validator: (val) =>
+                    (val == null || val.isEmpty) ? '请输入账号' : null,
               ),
               new TextFormField(
                 obscureText: true,
@@ -43,8 +65,9 @@ class LoginState extends State {
                     hintText: '请输入密码',
                     labelText: '密码'),
                 keyboardType: TextInputType.text,
-                onSaved: (val)=>this._password = val,
-                validator: (val)=>(val == null || val.isEmpty) ? '请输入密码' :  null,
+                onSaved: (val) => this._password = val,
+                validator: (val) =>
+                    (val == null || val.isEmpty) ? '请输入密码' : null,
               )
             ],
           ),
@@ -55,7 +78,7 @@ class LoginState extends State {
           margin: new EdgeInsets.only(top: 60.0),
           child: new RaisedButton(
             onPressed: () {
-              _onSubmit();
+              _onSubmit(context);
             },
             child: new Text('确定'),
             color: Colors.blue[800],
@@ -68,15 +91,22 @@ class LoginState extends State {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               new GestureDetector(
-                child: new Text('注册',style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),),
-                onTap: (){
+                child: new Text(
+                  '注册',
+                  style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),
+                ),
+                onTap: () {
                   Navigator.of(context).pushNamed('register');
                 },
               ),
-              new Text('忘记密码',style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),)
+              new Text(
+                '忘记密码',
+                style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),
+              )
             ],
           ),
-        )
+        ),
+
       ],
     );
   }
@@ -88,7 +118,6 @@ class LoginState extends State {
           centerTitle: true,
         ),
         body: new Container(
-            margin: new EdgeInsets.only(top: 30.0),
             padding: new EdgeInsets.all(15.0),
             color: Color.fromRGBO(255, 255, 255, 1),
             child: _body(context)));

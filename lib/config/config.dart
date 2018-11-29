@@ -1,3 +1,3 @@
 Map config = {
-  'baseUrl':'https://api.fit.zhangyuzhe.wang/api/front/',
+  'baseUrl':'https://api.quick.nmpos.net/home/frontend/',
 };

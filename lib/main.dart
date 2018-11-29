@@ -17,8 +17,6 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   bool _isLogin = false;
-  // This widget is the root of your application.
-  @override
   _init(){
     if(_isLogin){
       return new HomePage();
@@ -26,7 +24,8 @@ class MyApp extends StatelessWidget {
       return new LoginPage();
     }
   }
-
+  // This widget is the root of your application.
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {

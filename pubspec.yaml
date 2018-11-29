@@ -25,6 +25,9 @@ dependencies:
   flutter_refresh: ^0.0.1
   shared_preferences: ^0.4.3
   flutter_picker: ^1.0.3
+  flutter_spinkit: "^3.0.0"
+
+
 
 dev_dependencies:
   flutter_test:
