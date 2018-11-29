@@ -12,11 +12,21 @@ import 'package:quick_pay/views/my_team.dart';
 import 'package:quick_pay/views/my_share.dart';
 import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/views/register.dart';
+import 'package:quick_pay/views/login.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  bool _isLogin = false;
   // This widget is the root of your application.
   @override
+  _init(){
+    if(_isLogin){
+      return new HomePage();
+    }else{
+      return new LoginPage();
+    }
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
@@ -48,7 +58,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlue[800],
         accentColor: Colors.cyan[600],
       ),
-      home: HomePage(),
+      home:_init(),
     );
   }
 }

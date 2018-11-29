@@ -18,6 +18,7 @@ class MyShareState extends State {
               'assets/share.jpg',
               fit: BoxFit.fill,
               height: double.infinity,
+              width: double.infinity,
             ),
           ),
           new Container(

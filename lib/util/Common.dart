@@ -1,2 +1,6 @@
+class Common{
+  static checkLogin(){
 
+  }
+}
 
