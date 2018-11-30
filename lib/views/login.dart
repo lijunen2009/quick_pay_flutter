@@ -27,15 +27,9 @@ class LoginState extends State {
     Map result = await login(_name, _password);
     if (result['status'] == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', result['result'].toString());
-      var info = prefs.getString('token');
-      print(info);
-      print(info.runtimeType);
-
-
+      prefs.setString('token',json.encode(result['result']['userinfo']));
       Common.closeLoading(context);
-//      Navigator.of(context).pushReplacementNamed('/homepage');
-
+      Navigator.of(context).pushReplacementNamed('/homepage');
     } else {
       ToastUtil.showCenterShortToast(result['msg']);
     }

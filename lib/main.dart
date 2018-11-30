@@ -13,10 +13,32 @@ import 'package:quick_pay/views/my_share.dart';
 import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/views/register.dart';
 import 'package:quick_pay/views/login.dart';
+import 'package:quick_pay/util/Common.dart';
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget{
+  @override
+  MyAppState createState()=>MyAppState();
+}
+
+
+class MyAppState extends State {
   bool _isLogin = false;
+  @override
+  initState(){
+    _setLoginState();
+  }
+
+  _setLoginState() async{
+    var flag = await Common.checkLogin(context);
+
+//    if(flag){
+//      setState(() {
+//        _isLogin = true;
+//      });
+//    }
+  }
+
   _init(){
     if(_isLogin){
       return new HomePage();

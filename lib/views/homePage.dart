@@ -3,6 +3,8 @@ import 'package:quick_pay/views/indexPage.dart';
 import 'package:quick_pay/views/walletPage.dart';
 import 'package:quick_pay/views/settingPage.dart';
 import 'package:quick_pay/util/MyIcon.dart';
+import 'package:quick_pay/util/Common.dart';
+import 'package:quick_pay/service/user.dart';
 class HomePage extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -15,11 +17,20 @@ class HomeState extends State<HomePage> {
     '钱包',
     '设置'
   ];
+
+
   var _body = [
     new IndexPage(),
     new WalletPage(),
     new SettingPage()
-  ];  
+  ];
+
+  @override
+  initState(){
+    Common.checkLogin(context);
+    var token = Common.getToken();
+    print(token);
+  }
 
   Widget build(BuildContext context) {
 
