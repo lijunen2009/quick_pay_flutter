@@ -19,11 +19,16 @@ class Common {
     Navigator.pop(context);
   }
 
-  static Future checkLogin(BuildContext context) async {
+  static Future checkLogin(BuildContext context,{bool isJump = true}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
-    if(token.isEmpty){
-      Navigator.of(context).pushReplacementNamed('login');
+    if(token == null || token.isEmpty){
+      if(isJump){
+        Navigator.of(context).pushReplacementNamed('login');
+      }else{
+        return false;
+      }
+
     }else{
       return true;
     }

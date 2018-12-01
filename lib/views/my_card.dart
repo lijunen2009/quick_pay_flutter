@@ -1,8 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:quick_pay/service/user.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
+import 'package:quick_pay/util/Common.dart';
 class MyCardPage extends StatefulWidget{
   MyCardState createState()=>MyCardState();
 }
 class MyCardState extends State{
+  Map token;
+  Map cardInfo;
+  @override
+  _init() async{
+    await Common.checkLogin(context);
+    token = await Common.getToken();
+    _listBankCard();
+
+  }
+
+  _listBankCard() async{
+    Common.showLoading(context);
+    Map result =  await listBankCard(token['id']);
+    if(result['status'] == 200){
+      Common.closeLoading(context);
+      setState(() {
+        if(result['result']['list'].length > 0){
+          cardInfo = result['result']['list'][0];
+        }else{
+          cardInfo = null;
+        }
+      });
+    }else{
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
+  }
+
+  initState(){
+    _init();
+  }
+
+
   Widget build(BuildContext context){
     return new Scaffold(
       appBar: new AppBar(title: new Text('我的银行卡'),centerTitle: true,),
@@ -16,7 +51,7 @@ class MyCardState extends State{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Container(
-              child: new Text('招商银行',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),),
+              child: new Text(cardInfo != null ? '${cardInfo['bank_name']}' : '',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),),
             ),
             new Container(
               margin: new EdgeInsets.only(top:10.0),
@@ -27,7 +62,7 @@ class MyCardState extends State{
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  new Text('49494949999999999999999',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),textAlign: TextAlign.end,),
+                  new Text(cardInfo != null ?'${cardInfo['card_number']}' : '',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),textAlign: TextAlign.end,),
                 ],
               )
             ),

@@ -30,8 +30,8 @@ class MyAppState extends State {
   }
 
   _setLoginState() async{
-    var flag = await Common.checkLogin(context);
-    print(flag);
+    var flag = await Common.checkLogin(context,isJump: false);
+
     if(flag){
       setState(() {
         _isLogin = true;

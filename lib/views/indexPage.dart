@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quick_pay/util/Common.dart';
+import 'package:quick_pay/service/user.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -6,7 +9,35 @@ class IndexPage extends StatefulWidget {
 }
 
 class IndexState extends State<IndexPage> {
-  Widget toper(BuildContext context){
+  Map token;
+  Map balance;
+  Map authStates;
+  _init() async {
+    await Common.checkLogin(context);
+    token = await Common.getToken();
+    _countUserBalance();
+  }
+
+  _countUserBalance() async {
+    Common.showLoading(context);
+    Map result = await countUserBalance(token['id']);
+    if (result['status'] == 200) {
+      Common.closeLoading(context);
+      setState(() {
+        balance = result['result'];
+      });
+    } else {
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
+  }
+
+
+  @override
+  initState() {
+    _init();
+  }
+
+  Widget toper(BuildContext context) {
     return Stack(
       alignment: const Alignment(0.6, 1),
       children: <Widget>[
@@ -32,12 +63,12 @@ class IndexState extends State<IndexPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     new Text(
-                      '李俊恩',
+                      token == null ? '' : '${token['real_name']}',
                       textAlign: TextAlign.start,
                       style: new TextStyle(color: Colors.white),
                     ),
                     new Text(
-                      '15598045566',
+                      token == null ? '' : '${token['account']}',
                       textAlign: TextAlign.start,
                       style: new TextStyle(color: Colors.white),
                     )
@@ -64,17 +95,17 @@ class IndexState extends State<IndexPage> {
                     children: <Widget>[
                       new Text(
                         '今日收益',
-                        style:
-                        new TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                        style: new TextStyle(
+                            color: Color.fromRGBO(102, 102, 102, 1)),
                       ),
                       new Text(
-                        '0',
+                        balance == null ? '0' : '${balance['income']}',
                         style: new TextStyle(color: Colors.red),
                       )
                     ],
                   ),
                 ),
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).pushNamed('wallet_log');
                 },
               ),
@@ -86,15 +117,13 @@ class IndexState extends State<IndexPage> {
                           style: new TextStyle(
                               color: Color.fromRGBO(102, 102, 102, 1))),
                       new Text(
-                        '100',
+                        balance == null ? '' : '${balance['balance']}',
                         style: new TextStyle(color: Colors.red),
                       )
                     ],
                   ),
                 ),
-                onTap: (){
-
-                },
+                onTap: () {},
               )
             ],
           ),
