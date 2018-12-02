@@ -98,7 +98,7 @@ class CashState extends State<CashPage>{
         new Container(
           alignment: AlignmentDirectional.topStart,
           padding: new EdgeInsets.only(left: 15.0,right: 15.0,top: 8.0,bottom: 8.0),
-          child: new Text('注意事项',style: TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),textAlign: TextAlign.left,),
+          child: new Text('温馨提示',style: TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),textAlign: TextAlign.left,),
         ),
         new Container(
           alignment: AlignmentDirectional.topStart,

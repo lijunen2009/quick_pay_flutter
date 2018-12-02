@@ -72,10 +72,10 @@ class WalletLogState extends State {
 
   Widget _buildMoney(String money, type) {
     if (type == '2') {
-      return new Text(money,
+      return new Text('+'+money,
           style: new TextStyle(color: Color.fromRGBO(244, 67, 54, 1)));
     } else {
-      return new Text(money,
+      return new Text('-'+money,
           style: new TextStyle(color: Color.fromRGBO(52, 111, 6, 1)));
     }
   }
