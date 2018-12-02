@@ -30,6 +30,7 @@ class AuthDetailState extends State{
 
   @override
   initState(){
+    super.initState();
     _init();
   }
   Widget build(BuildContext context){

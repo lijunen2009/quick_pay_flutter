@@ -34,6 +34,7 @@ class MyCardState extends State{
   }
 
   initState(){
+    super.initState();
     _init();
   }
 

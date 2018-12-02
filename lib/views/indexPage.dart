@@ -34,6 +34,7 @@ class IndexState extends State<IndexPage> {
 
   @override
   initState() {
+    super.initState();
     _init();
   }
 

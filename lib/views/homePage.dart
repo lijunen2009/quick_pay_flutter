@@ -28,6 +28,7 @@ class HomeState extends State<HomePage> {
 
   @override
   initState() {
+    super.initState();
     _init();
   }
 

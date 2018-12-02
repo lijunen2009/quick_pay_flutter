@@ -34,6 +34,7 @@ class WalletState extends State<WalletPage> {
 
   @override
   initState() {
+    super.initState();
     _init();
   }
 

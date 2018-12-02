@@ -48,5 +48,5 @@ Future listWithdrawLog(userId, currPage, pageNumber) async {
     'curr_page': currPage,
     'page_number': pageNumber
   };
-  return await HttpUtil().post('user/listWithdrawLog', data: data);
+  return await HttpUtil().post('withDraw/listWithdrawLog', data: data);
 }

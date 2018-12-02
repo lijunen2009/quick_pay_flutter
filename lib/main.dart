@@ -12,7 +12,6 @@ import 'package:quick_pay/views/my_team.dart';
 import 'package:quick_pay/views/my_share.dart';
 import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/views/register.dart';
-import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/util/Common.dart';
 void main() => runApp(MyApp());
 
@@ -26,6 +25,7 @@ class MyAppState extends State {
   bool _isLogin = false;
   @override
   initState(){
+    super.initState();
     _setLoginState();
   }
 

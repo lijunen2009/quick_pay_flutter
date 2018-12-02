@@ -34,6 +34,7 @@ class CashState extends State<CashPage>{
 
   @override
   initState() {
+    super.initState();
     _init();
   }
   Widget _body(){

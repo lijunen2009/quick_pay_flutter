@@ -34,6 +34,7 @@ class AuthInfoState extends State<AuthInfoPage> {
 
   @override
   initState() {
+    super.initState();
     _init();
   }
 
