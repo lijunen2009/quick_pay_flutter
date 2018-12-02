@@ -12,6 +12,7 @@ class CashSuccessState extends State {
         title: new Text('申请成功'),
         centerTitle: true,
       ),
+      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       body: new ListView(
         children: <Widget>[
           new Container(
