@@ -3,7 +3,8 @@ import 'package:quick_pay/service/user.dart';
 import 'package:quick_pay/util/ToastUtil.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'package:flutter_refresh/flutter_refresh.dart';
-
+import 'package:intl/intl.dart';
+import 'package:quick_pay/views/components/no_data.dart';
 class CashLogPage extends StatefulWidget {
   @override
   CashLogState createState() => CashLogState();
@@ -71,12 +72,13 @@ class CashLogState extends State {
     });
   }
   _itemBuilder(item){
-    DateTime applyTime = DateTime.fromMillisecondsSinceEpoch(int.parse(item['apply_time']) *1000);
+    DateTime applyTime = DateTime.fromMillisecondsSinceEpoch(int.parse(item['apply_time']) *1000 + 8 * 3600 *1000);
+    var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
     return new Column(
       children: <Widget>[
         new ListTile(
           title: new Text('${item['order_no']}'),
-          subtitle: new Text('${applyTime.year}-${applyTime.month}-${applyTime.day} ${applyTime.hour}:${applyTime.minute}'),
+          subtitle: new Text('${formatter.format(applyTime)}'),
           trailing: new Column(
             children: <Widget>[
               new Text(
@@ -95,22 +97,27 @@ class CashLogState extends State {
     );
   }
   Widget _body() {
-    return new SafeArea(
-        child: new Refresh(
-      onHeaderRefresh: onHeaderRefresh,
-      onFooterRefresh: onFooterRefresh,
-      childBuilder: (BuildContext context,
-          {ScrollController controller, ScrollPhysics physics}) {
-        return new ListView.builder(
-            controller: controller,
-            physics: physics,
-            itemCount: _itemCount,
-            itemBuilder: (context,index){
-              return _itemBuilder(list[index]);
-            }
-        );
-      },
-    ));
+    if(list.length == 0){
+      return new NoDataPage();
+    }else{
+      return new SafeArea(
+          child: new Refresh(
+            onHeaderRefresh: onHeaderRefresh,
+            onFooterRefresh: onFooterRefresh,
+            childBuilder: (BuildContext context,
+                {ScrollController controller, ScrollPhysics physics}) {
+              return new ListView.builder(
+                  controller: controller,
+                  physics: physics,
+                  itemCount: _itemCount,
+                  itemBuilder: (context,index){
+                    return _itemBuilder(list[index]);
+                  }
+              );
+            },
+          ));
+    }
+
   }
 
   Widget build(BuildContext context) {

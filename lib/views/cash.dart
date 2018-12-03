@@ -12,7 +12,11 @@ class CashState extends State<CashPage>{
 
   Map token;
   Map balance;
-
+  @override
+  initState() {
+    super.initState();
+    _init();
+  }
   _init() async {
     await Common.checkLogin(context);
     token = await Common.getToken();
@@ -31,12 +35,20 @@ class CashState extends State<CashPage>{
       ToastUtil.showCenterShortToast(result['msg']);
     }
   }
-
-  @override
-  initState() {
-    super.initState();
-    _init();
+  _withDraw() async{
+    Common.showLoading(context);
+    Map result = await withDraw(token['id'],moneyController.text);
+    print(result);
+    Common.closeLoading(context);
+    if(result['status'] == 200){
+      Common.closeLoading(context);
+      Navigator.of(context).pushNamed('cash_success');
+    }else{
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
   }
+
+
   Widget _body(){
     return new Column(
       children: <Widget>[
@@ -118,22 +130,32 @@ class CashState extends State<CashPage>{
 
     );
   }
-  Widget _button =  new Container(
-    margin: new EdgeInsets.all(15.0),
-    child: new RaisedButton(
-      onPressed: (){
-        String value = moneyController.text;
-        if(value.isEmpty){
-          ToastUtil.showCenterShortToast('请输入提现金额');
-          return false;
-        }
-        print(moneyController.text);
-      },
-      child: new Text('确定'),
-      color: Colors.blue,
-      textColor: Color.fromRGBO(255, 255, 255, 1),
-    ),
-  );
+  Widget _button(){
+    return new Container(
+      margin: new EdgeInsets.all(15.0),
+      child: new RaisedButton(
+        onPressed: (){
+          String value = moneyController.text;
+          if(value.isEmpty){
+            ToastUtil.showCenterShortToast('请输入提现金额');
+            return false;
+          }
+          if(double.parse(value) > double.parse(balance['balance'])){
+            ToastUtil.showCenterShortToast('请输入正确的提现金额');
+            return false;
+          }
+          if(double.parse(value) <5){
+            ToastUtil.showCenterShortToast('提现金额不能少于5元');
+            return false;
+          }
+          _withDraw();
+        },
+        child: new Text('确定'),
+        color: Colors.blue,
+        textColor: Color.fromRGBO(255, 255, 255, 1),
+      ),
+    );
+  }
   Widget build(BuildContext context){
     return new Scaffold(
       appBar: new AppBar(title: new Text('提现'),centerTitle: true,),
@@ -142,7 +164,7 @@ class CashState extends State<CashPage>{
 //        color: Color.fromRGBO(255, 255, 255, 1),
         children: <Widget>[
           _body(),
-          _button
+          _button()
         ],
       ),
     );

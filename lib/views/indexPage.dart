@@ -118,7 +118,7 @@ class IndexState extends State<IndexPage> {
                           style: new TextStyle(
                               color: Color.fromRGBO(102, 102, 102, 1))),
                       new Text(
-                        balance == null ? '' : '${balance['balance']}',
+                        balance == null ? '0' : '${balance['balance']}',
                         style: new TextStyle(color: Colors.red),
                       )
                     ],

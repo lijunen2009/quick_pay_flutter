@@ -3,7 +3,8 @@ import 'package:flutter_refresh/flutter_refresh.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'package:quick_pay/util/ToastUtil.dart';
 import 'package:quick_pay/service/user.dart';
-
+import 'package:intl/intl.dart';
+import 'package:quick_pay/views/components/no_data.dart';
 class WalletLogPage extends StatefulWidget {
   @override
   WalletLogState createState() => WalletLogState();
@@ -82,34 +83,39 @@ class WalletLogState extends State {
 
   Widget _buildItem(item) {
     DateTime logTime = new DateTime.fromMillisecondsSinceEpoch(
-        int.parse(item['create_time']) * 1000);
+        int.parse(item['create_time']) * 1000 + 8*3600*1000);
+    var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
     return new ListTile(
       title: new Text('${item['remark']}'),
-      subtitle: new Text(
-          '${logTime.year}-${logTime.month}-${logTime.day} ${logTime.hour}:${logTime.minute}'),
+      subtitle: new Text('${formatter.format(logTime)}'),
       trailing: _buildMoney(item['money'], item['log_type']),
     );
   }
 
   Widget _body() {
-    return new SafeArea(
-      child: new Refresh(
-        onFooterRefresh: onFooterRefresh,
-        onHeaderRefresh: onHeaderRefresh,
-        childBuilder: (BuildContext context,
-            {ScrollController controller, ScrollPhysics physics}) {
-          return ListView.builder(
-              physics: physics,
-              controller: controller,
-              itemCount: _itemCount,
-              itemBuilder: (context, index) {
-                return new Column(
-                  children: <Widget>[_buildItem(list[index]), new Divider()],
-                );
-              });
-        },
-      ),
-    );
+    if(list.length == 0){
+      return new NoDataPage();
+    }else{
+      return new SafeArea(
+        child: new Refresh(
+          onFooterRefresh: onFooterRefresh,
+          onHeaderRefresh: onHeaderRefresh,
+          childBuilder: (BuildContext context,
+              {ScrollController controller, ScrollPhysics physics}) {
+            return ListView.builder(
+                physics: physics,
+                controller: controller,
+                itemCount: _itemCount,
+                itemBuilder: (context, index) {
+                  return new Column(
+                    children: <Widget>[_buildItem(list[index]), new Divider()],
+                  );
+                });
+          },
+        ),
+      );
+    }
+
   }
 
   Widget build(BuildContext context) {

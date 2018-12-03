@@ -50,3 +50,43 @@ Future listWithdrawLog(userId, currPage, pageNumber) async {
   };
   return await HttpUtil().post('withDraw/listWithdrawLog', data: data);
 }
+
+Future withDraw(userId,money) async{
+  Map data = {
+    'user_id':userId,
+    'money':money
+  };
+  return await HttpUtil().post('withDraw/withDraw',data: data);
+}
+
+Future realNameAuth(userId,realName,identifyNumber) async{
+  Map data = {
+    'user_id' :userId,
+    'real_name':realName,
+    'identity_number':identifyNumber
+  };
+  return await HttpUtil().post('user/realNameAuth',data: data);
+}
+
+Future listArea({String parentId:''}) async{
+  Map data = {};
+  if(parentId.isNotEmpty){
+    data.addAll({'parent_id':parentId});
+  }
+  print(data);
+  return await HttpUtil().post('user/listArea',data: data);
+}
+
+Future listSupportBank() async{
+  return await HttpUtil().post('user/listSupportBank');
+}
+Future bindBankCard(userId,cardNumber,bankName) async{
+  Map data = {
+    'user_id':userId,
+    'card_number':cardNumber,
+    'bank_name':bankName
+  };
+  return  await HttpUtil().post('user/bindBankCard',data: data);
+}
+
+

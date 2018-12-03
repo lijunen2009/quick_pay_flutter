@@ -69,7 +69,7 @@ class AuthInfoState extends State<AuthInfoPage> {
                               fontSize: 22),
                         ),
                         new Text(
-                          isIdAuth ? '(已认证)' : '为认证',
+                          isIdAuth ? '(已认证)' : '(未认证)',
                           style: new TextStyle(
                               color: isIdAuth ? Color.fromRGBO(255, 133, 71, 1) :Color.fromRGBO(244, 67, 54, 1) ,
                               fontSize: 22),
@@ -115,7 +115,7 @@ class AuthInfoState extends State<AuthInfoPage> {
                               fontSize: 22),
                         ),
                         new Text(
-                          isCardAuth ? '(已认证)' : '为认证',
+                          isCardAuth ? '(已认证)' : '(未认证)',
                           style: new TextStyle(
                               color: isCardAuth ?  Color.fromRGBO(255, 133, 71, 1) : Color.fromRGBO(244, 67, 54, 1) ,
                               fontSize: 22),
