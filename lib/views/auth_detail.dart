@@ -43,17 +43,17 @@ class AuthDetailState extends State{
           children: <Widget>[
             new ListTile(
               title: new Text('真实姓名'),
-              subtitle: new Text(userInfo != null ?'${userInfo['real_name']}' : ''),
+              subtitle: new Text((userInfo != null && userInfo['real_name'] != null) ?'${userInfo['real_name']}' : ''),
             ),
             new Divider(),
             new ListTile(
               title: new Text('收款账号'),
-              subtitle: new Text(userInfo != null ? '${userInfo['card_number']}':''),
+              subtitle: new Text((userInfo != null && userInfo['card_number'] != null) ? '${userInfo['card_number']}':''),
             ),
             new Divider(),
             new ListTile(
               title: new Text('所属银行'),
-              subtitle: new Text(userInfo != null ? '${userInfo['bank_name']}' : ''),
+              subtitle: new Text((userInfo != null && userInfo['bank_name'] != null) ? '${userInfo['bank_name']}' : ''),
             )
           ],
         ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'dart:convert';
+import 'package:quick_pay/service/user.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
+import 'package:quick_pay/util/Common.dart';
 class AuthCard extends StatefulWidget{
   @override
   AuthCardState createState()=>AuthCardState();
@@ -10,19 +13,53 @@ class AuthCardState extends State{
   String _cardNo;
   String _openCity = '请选择开户城市';
   String _bankName = '请选择所属银行';
-  GlobalKey<FormState> _fromKey = new GlobalKey<FormState>();
-  var PickerData = '''
-   [
-   ["中国工商银行","招商银行"]
-   ]
-    ''';
+  Map token;
+  List bankList = [];
+  List cityList = [];
 
-  var city = '''
+  String city = '''
   [
     ["内蒙古","山西","山东"],
     ["呼和浩特","包头","鄂尔多斯"]
   ]
   ''';
+  GlobalKey<FormState> _fromKey = new GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _init();
+  }
+
+  _init() async{
+    await Common.checkLogin(context);
+    token = await Common.getToken();
+    _listSupportBank();
+
+  }
+
+  _listSupportBank() async{
+    Common.showLoading(context);
+    Map result = await listSupportBank();
+    List tempList = [];
+    Common.closeLoading(context);
+
+    if(result['status'] == 200){
+      for(var item in result['result']){
+        tempList.add(item['bank_name']);
+      }
+      bankList.add(tempList);
+      setState(() {
+        bankList = bankList;
+      });
+    }else{
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
+  }
+
+
+
+
   void _onSubmit(){
     final form = _fromKey.currentState;
     if(form.validate()){
@@ -33,7 +70,7 @@ class AuthCardState extends State{
   showPicker(BuildContext context) {
     new Picker(
         adapter: PickerDataAdapter<String>(
-            pickerdata: new JsonDecoder().convert(PickerData), isArray: true),
+            pickerdata: bankList, isArray: true),
         changeToFirst: true,
         hideHeader: false,
         confirmText: '确定',

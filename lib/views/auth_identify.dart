@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_picker/flutter_picker.dart';
-import 'dart:convert';
+import 'package:quick_pay/util/ToastUtil.dart';
+import 'package:quick_pay/util/Common.dart';
+import 'package:quick_pay/service/user.dart';
 
 class AuthIdentity extends StatefulWidget {
   AuthIdentityState createState() => AuthIdentityState();
@@ -9,56 +10,47 @@ class AuthIdentity extends StatefulWidget {
 class AuthIdentityState extends State<AuthIdentity> {
   String _name;
   String _identify;
-  String _color;
-  String _config;
+  Map token;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  var PickerData = '''
-    [
-    [
-        1,
-        2,
-        3,
-        4
-    ],
-    [
-        11,
-        22,
-        33,
-        44
-    ],
-    [
-        "aaa",
-        "bbb",
-        "ccc"
-    ]
-]
-    ''';
 
-  showPicker(BuildContext context) {
-    new Picker(
-        adapter: PickerDataAdapter<String>(
-            pickerdata: new JsonDecoder().convert(PickerData), isArray: true),
-        changeToFirst: true,
-        hideHeader: false,
-        confirmText: '确定',
-        confirmTextStyle: new TextStyle(color: Colors.blue),
-        cancelText: '取消',
-        cancelTextStyle: new TextStyle(color: Colors.blue),
-        onConfirm: (Picker picker, List value) {
-          print(value.toString());
-          print(picker.adapter.text);
-        }).showModal(this.context); //
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _init();
+  }
+
+  _init() async{
+    await Common.checkLogin(context);
+    token = await Common.getToken();
+  }
+
+  _realNameAuth() async{
+    Common.showLoading(context);
+    Map result = await realNameAuth(token['id'],_name,_identify);
+    if(result['status'] == 200){
+      ToastUtil.showCenterShortToast(result['msg']);
+      new Future.delayed(new Duration(seconds: 2),(){
+        Common.closeLoading(context);
+        Navigator.of(context).pushReplacementNamed('/auth_info');
+      });
+
+    }else{
+      Common.closeLoading(context);
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
   }
 
   void _onSubmit() {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
-      showDialog(
-          context: context,
-          builder: (ctx) => new AlertDialog(
-                content: new Text('$_name $_identify'),
-              ));
+//      showDialog(
+//          context: context,
+//          builder: (ctx) => new AlertDialog(
+//                content: new Text('$_name $_identify'),
+//              ));
+      _realNameAuth();
     }
   }
 
@@ -74,9 +66,10 @@ class AuthIdentityState extends State<AuthIdentity> {
                   labelText: '请输入真实姓名',
                   hintText: '姓名',
                   border: OutlineInputBorder()),
-              keyboardType: TextInputType.text,
+//              keyboardType: TextInputType.text,
               onSaved: (val) => this._name = val,
-              maxLength: 2,
+              maxLength: 10,
+              initialValue: '李俊恩',
               validator: (v) => (v == null || v.isEmpty) ? '请输入真实姓名' : null,
             ),
             margin: new EdgeInsets.all(10.0),
@@ -86,8 +79,8 @@ class AuthIdentityState extends State<AuthIdentity> {
             child: new TextFormField(
               onSaved: (val) => this._identify = val,
               validator: (v) => (v == null || v.isEmpty) ? '请输入身份证号' : null,
-              keyboardType: TextInputType.text,
-              maxLength: 20,
+//              keyboardType: TextInputType.text,
+              maxLength: 18,
               decoration: new InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: '身份证',
