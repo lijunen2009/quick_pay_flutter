@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_pay/service/user.dart';
 import 'package:quick_pay/util/ToastUtil.dart';
 import 'package:quick_pay/util/Common.dart';
+import 'package:quick_pay/views/components/no_data.dart';
 class MyCardPage extends StatefulWidget{
   MyCardState createState()=>MyCardState();
 }
@@ -37,12 +38,9 @@ class MyCardState extends State{
     super.initState();
     _init();
   }
-
-
-  Widget build(BuildContext context){
-    return new Scaffold(
-      appBar: new AppBar(title: new Text('我的银行卡'),centerTitle: true,),
-      body: new Container(
+  _body(){
+    if(cardInfo != null && cardInfo['card_number'] != null){
+      return new Container(
         width: double.infinity,
         height: 100,
         decoration: new BoxDecoration(borderRadius: BorderRadius.circular(5.0),color: Color.fromRGBO(71, 116, 208, 0.95)),
@@ -59,17 +57,26 @@ class MyCardState extends State{
               child: new Text('储蓄卡',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),),
             ),
             new Container(
-              margin: new EdgeInsets.only(top: 10.0),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  new Text(cardInfo != null ?'${cardInfo['card_number']}' : '',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),textAlign: TextAlign.end,),
-                ],
-              )
+                margin: new EdgeInsets.only(top: 10.0),
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    new Text(cardInfo != null ?'${cardInfo['card_number']}' : '',style: new TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),textAlign: TextAlign.end,),
+                  ],
+                )
             ),
           ],
         ),
-      ),     
+      );
+    }else{
+      return new NoDataPage();
+    }
+  }
+
+  Widget build(BuildContext context){
+    return new Scaffold(
+      appBar: new AppBar(title: new Text('我的银行卡'),centerTitle: true,),
+      body: _body(),
     );
   }
 }
