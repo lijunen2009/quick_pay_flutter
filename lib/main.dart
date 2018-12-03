@@ -26,6 +26,7 @@ class MyAppState extends State {
   bool _isLogin = false;
   @override
   initState(){
+    
     _setLoginState();
   }
 
