@@ -5,6 +5,8 @@ import 'package:quick_pay/views/settingPage.dart';
 import 'package:quick_pay/util/MyIcon.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'package:quick_pay/service/user.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
+
 class HomePage extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -12,44 +14,41 @@ class HomePage extends StatefulWidget {
 
 class HomeState extends State<HomePage> {
   int _tabIndex = 0;
-  var _title = [
-    '首页',
-    '钱包',
-    '设置'
-  ];
+  Map token;
+  Map balance;
+  var _title = ['首页', '钱包', '设置'];
+
+  var _body = [new IndexPage(), new WalletPage(), new SettingPage()];
+
+  _init() async {
+    await Common.checkLogin(context);
+  }
 
 
-  var _body = [
-    new IndexPage(),
-    new WalletPage(),
-    new SettingPage()
-  ];
 
   @override
-  initState(){
-    Common.checkLogin(context);
-    var token = Common.getToken();
-    print(token);
+  initState() {
+    super.initState();
+    _init();
   }
 
   Widget build(BuildContext context) {
-
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
         appBar: new AppBar(
-            leading: Icon(MyIcon.scan),
-            title: new Text(_title[_tabIndex]),
-            centerTitle: true,
-            actions: <Widget>[
-              new IconButton(icon: new Icon(MyIcon.log_out), onPressed: (){
-                print('我要退出了,baibai');
-                Navigator.of(context).pushNamed('login');
-
-              })
-            ],
+          leading: Icon(MyIcon.scan),
+          title: new Text(_title[_tabIndex]),
+          centerTitle: true,
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(MyIcon.log_out),
+                onPressed: () {
+                  print('我要退出了,baibai');
+                  Navigator.of(context).pushNamed('cash_success');
+                })
+          ],
         ),
         body: _body[_tabIndex],
-        
         bottomNavigationBar: new BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             new BottomNavigationBarItem(

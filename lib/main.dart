@@ -12,41 +12,41 @@ import 'package:quick_pay/views/my_team.dart';
 import 'package:quick_pay/views/my_share.dart';
 import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/views/register.dart';
-import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/util/Common.dart';
+import 'package:quick_pay/views/cash_success.dart';
+
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget{
+class MyApp extends StatefulWidget {
   @override
-  MyAppState createState()=>MyAppState();
+  MyAppState createState() => MyAppState();
 }
-
 
 class MyAppState extends State {
   bool _isLogin = false;
   @override
-  initState(){
-    
+  initState() {
+    super.initState();
     _setLoginState();
   }
 
-  _setLoginState() async{
-    var flag = await Common.checkLogin(context);
-    print(flag);
-    if(flag){
+  _setLoginState() async {
+    var flag = await Common.checkLogin(context, isJump: false);
+    if (flag) {
       setState(() {
         _isLogin = true;
       });
     }
   }
 
-  _init(){
-    if(_isLogin){
+  _init() {
+    if (_isLogin) {
       return new HomePage();
-    }else{
+    } else {
       return new LoginPage();
     }
   }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -61,10 +61,11 @@ class MyAppState extends State {
         'wallet_log': (BuildContext context) => new WalletLogPage(),
         'cash_log': (BuildContext context) => new CashLogPage(),
         'my_card': (BuildContext context) => new MyCardPage(),
-        'my_team':(BuildContext context)=>new MyTeamPage(),
-        'my_share':(BuildContext context)=>new MySharePage(),
-        'login':(BuildContext context)=>new LoginPage(),
-        'register':(BuildContext context)=>RegisterPage()
+        'my_team': (BuildContext context) => new MyTeamPage(),
+        'my_share': (BuildContext context) => new MySharePage(),
+        'login': (BuildContext context) => new LoginPage(),
+        'register': (BuildContext context) => new RegisterPage(),
+        'cash_success': (BuildContext context) => new CashSuccessPage()
       },
       title: '益点闪',
       theme: ThemeData(
@@ -80,7 +81,7 @@ class MyAppState extends State {
         primaryColor: Colors.lightBlue[800],
         accentColor: Colors.cyan[600],
       ),
-      home:_init(),
+      home: _init(),
     );
   }
 }
