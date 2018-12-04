@@ -29,7 +29,6 @@ class MyAppState extends State {
     super.initState();
     _setLoginState();
   }
-
   _setLoginState() async {
     var flag = await Common.checkLogin(context, isJump: false);
     if (flag) {

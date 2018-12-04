@@ -16,13 +16,93 @@ class AuthCardState extends State{
   Map token;
   List bankList = [];
   List cityList = [];
-
-  String city = '''
-  [
-    ["内蒙古","山西","山东"],
-    ["呼和浩特","包头","鄂尔多斯"]
-  ]
-  ''';
+  List provinceList = [];
+  List areaCity = [];
+  String pickerData = '''
+[
+    {
+        "a": [
+            {
+                "a1": [
+                    1,
+                    2,
+                    3,
+                    4
+                ]
+            },
+            {
+                "a2": [
+                    5,
+                    6,
+                    7,
+                    8
+                ]
+            },
+            {
+                "a3": [
+                    9,
+                    10,
+                    11,
+                    12
+                ]
+            }
+        ]
+    },
+    {
+        "b": [
+            {
+                "b1": [
+                    11,
+                    22,
+                    33,
+                    44
+                ]
+            },
+            {
+                "b2": [
+                    55,
+                    66,
+                    77,
+                    88
+                ]
+            },
+            {
+                "b3": [
+                    99,
+                    1010,
+                    1111,
+                    1212
+                ]
+            }
+        ]
+    },
+    {
+        "c": [
+            {
+                "c1": [
+                    "a",
+                    "b",
+                    "c"
+                ]
+            },
+            {
+                "c2": [
+                    "aa",
+                    "bb",
+                    "cc"
+                ]
+            },
+            {
+                "c3": [
+                    "aaa",
+                    "bbb",
+                    "ccc"
+                ]
+            }
+        ]
+    }
+]
+    ''';
   GlobalKey<FormState> _fromKey = new GlobalKey<FormState>();
   @override
   void initState() {
@@ -35,6 +115,12 @@ class AuthCardState extends State{
     await Common.checkLogin(context);
     token = await Common.getToken();
     _listSupportBank();
+    new Future.delayed(new Duration(milliseconds: 500),(){
+        _listAreaCity();
+    });
+//   new Future.delayed(new Duration(milliseconds: 500),(){
+//     _listArea();
+//   });
 
   }
 
@@ -57,7 +143,45 @@ class AuthCardState extends State{
     }
   }
 
+  _listArea({parentId:'0',Picker picker}) async{
+    Common.showLoading(context);
+    Map result = await listArea(parentId: parentId);
+    print(result);
+    Common.closeLoading(context);
+    if(result['status'] == 200){
+      for(var item in result['result']){
+        var city = _buildCity(item['id']);
+        print(city);
+        Map pro ={
+         item['name']:city
+        };
+        cityList.add(pro);
+      }
+      print(cityList);
+    }else{
+      ToastUtil.showCenterShortToast(result['msg']);
+    }
+  }
 
+  _listAreaCity() async{
+    Common.showLoading(context);
+    Map result = await listAreaCity();
+    print(result);
+    Common.closeLoading(context);
+    if(result['status'] == 200){
+      areaCity = result['result'];
+    }
+  }
+
+  _buildCity(id){
+    List city = [];
+    for(var item in areaCity){
+      if(item['parent_id'] == id){
+        city.add(item['name']);
+      }
+    }
+    return city;
+  }
 
 
   void _onSubmit(){
@@ -87,9 +211,9 @@ class AuthCardState extends State{
         }).showModal(this.context); //
   }
   showCityPicker(BuildContext context) {
-    new Picker(
+    Picker picker = new Picker(
         adapter: PickerDataAdapter<String>(
-            pickerdata: new JsonDecoder().convert(city), isArray: true),
+            pickerdata: cityList, isArray:false),
         changeToFirst: true,
         hideHeader: false,
         confirmText: '确定',
@@ -103,7 +227,10 @@ class AuthCardState extends State{
           setState(() {
             _openCity = cityList[0]+''+cityList[1];
           });
-        }).showModal(this.context); //
+        }); //
+    picker.showModal(context);
+
+
   }
 
   Widget build(BuildContext context){

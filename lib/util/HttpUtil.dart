@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:quick_pay/config/config.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
 class HttpUtil {
   static HttpUtil instance;
   Dio dio;
@@ -41,13 +42,14 @@ class HttpUtil {
         cancelToken: cancelToken,
       );
       print('get请求成功!response.data：${response.data}');
+      return response.data;
     } on DioError catch (e) {
       if (CancelToken.isCancel(e)) {
         print('get请求取消! ' + e.message);
       }
       print('get请求发生错误：$e');
     }
-    return response.data;
+
   }
 
   post(url, {data, options, cancelToken}) async {
@@ -59,13 +61,15 @@ class HttpUtil {
         data: data,
         cancelToken: cancelToken,
       );
+      return response.data;
       // print('post请求成功!response.data：${response.data}');
     } on DioError catch (e) {
       if (CancelToken.isCancel(e)) {
         print('post请求取消! ' + e.message);
       }
       print('post请求发生错误：$e');
+      ToastUtil.showCenterShortToast('请求超时');
     }
-    return response.data;
+
   }
 }

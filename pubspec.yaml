@@ -27,6 +27,7 @@ dependencies:
   flutter_picker: ^1.0.3
   flutter_spinkit: ^3.0.0
   intl: ^0.15.7
+  connectivity: ^0.3.2
 
 
 

@@ -73,8 +73,11 @@ Future listArea({String parentId:''}) async{
   if(parentId.isNotEmpty){
     data.addAll({'parent_id':parentId});
   }
-  print(data);
   return await HttpUtil().post('user/listArea',data: data);
+}
+
+Future listAreaCity() async{
+  return await HttpUtil().post('user/listAreaCity');
 }
 
 Future listSupportBank() async{
