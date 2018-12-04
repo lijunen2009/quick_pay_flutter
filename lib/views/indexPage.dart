@@ -40,13 +40,13 @@ class IndexState extends State<IndexPage> {
 
   Widget toper(BuildContext context) {
     return Stack(
-      alignment: const Alignment(0.6, 1),
+      alignment: const Alignment(1, 1),
       children: <Widget>[
         new Container(
           color: Colors.lightBlue[800],
-          height: 270,
+          height: 250,
           padding: new EdgeInsets.only(
-              top: 10.0, left: 20.0, right: 20.0, bottom: 20.0),
+              top: 0.0, left: 20.0, right: 20.0, bottom: 80.0),
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,7 +80,6 @@ class IndexState extends State<IndexPage> {
           ),
         ),
         new Container(
-          // color: Colors.lightBlueAccent,
           padding: new EdgeInsets.only(
               top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
           margin: new EdgeInsets.only(left: 30.0, right: 30.0),

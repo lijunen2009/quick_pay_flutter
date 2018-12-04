@@ -16,93 +16,8 @@ class AuthCardState extends State{
   Map token;
   List bankList = [];
   List cityList = [];
-  List provinceList = [];
-  List areaCity = [];
-  String pickerData = '''
-[
-    {
-        "a": [
-            {
-                "a1": [
-                    1,
-                    2,
-                    3,
-                    4
-                ]
-            },
-            {
-                "a2": [
-                    5,
-                    6,
-                    7,
-                    8
-                ]
-            },
-            {
-                "a3": [
-                    9,
-                    10,
-                    11,
-                    12
-                ]
-            }
-        ]
-    },
-    {
-        "b": [
-            {
-                "b1": [
-                    11,
-                    22,
-                    33,
-                    44
-                ]
-            },
-            {
-                "b2": [
-                    55,
-                    66,
-                    77,
-                    88
-                ]
-            },
-            {
-                "b3": [
-                    99,
-                    1010,
-                    1111,
-                    1212
-                ]
-            }
-        ]
-    },
-    {
-        "c": [
-            {
-                "c1": [
-                    "a",
-                    "b",
-                    "c"
-                ]
-            },
-            {
-                "c2": [
-                    "aa",
-                    "bb",
-                    "cc"
-                ]
-            },
-            {
-                "c3": [
-                    "aaa",
-                    "bbb",
-                    "ccc"
-                ]
-            }
-        ]
-    }
-]
-    ''';
+  String data;
+
   GlobalKey<FormState> _fromKey = new GlobalKey<FormState>();
   @override
   void initState() {
@@ -115,12 +30,7 @@ class AuthCardState extends State{
     await Common.checkLogin(context);
     token = await Common.getToken();
     _listSupportBank();
-    new Future.delayed(new Duration(milliseconds: 500),(){
-        _listAreaCity();
-    });
-//   new Future.delayed(new Duration(milliseconds: 500),(){
-//     _listArea();
-//   });
+    _listAreaCity();
 
   }
 
@@ -135,52 +45,31 @@ class AuthCardState extends State{
         tempList.add(item['bank_name']);
       }
       bankList.add(tempList);
-      setState(() {
-        bankList = bankList;
-      });
+
     }else{
       ToastUtil.showCenterShortToast(result['msg']);
     }
   }
 
-  _listArea({parentId:'0',Picker picker}) async{
-    Common.showLoading(context);
-    Map result = await listArea(parentId: parentId);
-    print(result);
-    Common.closeLoading(context);
-    if(result['status'] == 200){
-      for(var item in result['result']){
-        var city = _buildCity(item['id']);
-        print(city);
-        Map pro ={
-         item['name']:city
-        };
-        cityList.add(pro);
-      }
-      print(cityList);
-    }else{
-      ToastUtil.showCenterShortToast(result['msg']);
-    }
-  }
+
 
   _listAreaCity() async{
     Common.showLoading(context);
     Map result = await listAreaCity();
-    print(result);
     Common.closeLoading(context);
     if(result['status'] == 200){
-      areaCity = result['result'];
-    }
-  }
-
-  _buildCity(id){
-    List city = [];
-    for(var item in areaCity){
-      if(item['parent_id'] == id){
-        city.add(item['name']);
+      for(var item in result['result']){
+        List city = [];
+        for(var cityItem  in item['city']){
+          city.add(cityItem['name']);
+        }
+        Map value = {
+          item['name']:city
+        };
+        cityList.add(value);
       }
+      data = JsonEncoder().convert(cityList);
     }
-    return city;
   }
 
 
@@ -188,7 +77,32 @@ class AuthCardState extends State{
     final form = _fromKey.currentState;
     if(form.validate()){
       form.save();
-      showDialog(context: context,builder: (r)=>new AlertDialog(content: new Text('$_cardNo'),));
+      if(_bankName =='请选择所属银行'){
+        ToastUtil.showCenterShortToast('请选择所属银行');
+        return;
+      }
+      if(_openCity == '请选择开户城市'){
+        ToastUtil.showCenterShortToast('请选择开户城市');
+        return;
+      }
+
+      _bindBankCard();
+//      showDialog(context: context,builder: (r)=>new AlertDialog(content: new Text('$_cardNo'),));
+    }
+  }
+
+  _bindBankCard() async{
+    Common.showLoading(context);
+    Map result = await bindBankCard(token['id'],_cardNo,_bankName,_openCity);
+    if(result['status'] == 200){
+      Common.closeLoading(context);
+      ToastUtil.showCenterShortToast(result['msg']);
+      new Future.delayed(new Duration(seconds: 2),(){
+        Navigator.of(context).pop();
+      });
+    }else{
+      Common.closeLoading(context);
+      ToastUtil.showCenterShortToast(result['msg']);
     }
   }
   showPicker(BuildContext context) {
@@ -213,7 +127,7 @@ class AuthCardState extends State{
   showCityPicker(BuildContext context) {
     Picker picker = new Picker(
         adapter: PickerDataAdapter<String>(
-            pickerdata: cityList, isArray:false),
+            pickerdata: JsonDecoder().convert(data), isArray:false),
         changeToFirst: true,
         hideHeader: false,
         confirmText: '确定',
@@ -225,7 +139,7 @@ class AuthCardState extends State{
           temp = temp.replaceAll(']', '');
           List cityList = temp.split(',');
           setState(() {
-            _openCity = cityList[0]+''+cityList[1];
+            _openCity = cityList[1];
           });
         }); //
     picker.showModal(context);

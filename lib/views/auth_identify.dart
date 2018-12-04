@@ -32,7 +32,7 @@ class AuthIdentityState extends State<AuthIdentity> {
       ToastUtil.showCenterShortToast(result['msg']);
       new Future.delayed(new Duration(seconds: 2),(){
         Common.closeLoading(context);
-        Navigator.of(context).pushReplacementNamed('/auth_info');
+        Navigator.of(context).pop();
       });
 
     }else{

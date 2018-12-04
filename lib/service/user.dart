@@ -83,11 +83,12 @@ Future listAreaCity() async{
 Future listSupportBank() async{
   return await HttpUtil().post('user/listSupportBank');
 }
-Future bindBankCard(userId,cardNumber,bankName) async{
+Future bindBankCard(userId,cardNumber,bankName,city) async{
   Map data = {
     'user_id':userId,
     'card_number':cardNumber,
-    'bank_name':bankName
+    'bank_name':bankName,
+    'city':city
   };
   return  await HttpUtil().post('user/bindBankCard',data: data);
 }

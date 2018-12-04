@@ -6,7 +6,7 @@ import 'package:quick_pay/util/MyIcon.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'package:quick_pay/service/user.dart';
 import 'package:quick_pay/util/ToastUtil.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class HomePage extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -24,7 +24,11 @@ class HomeState extends State<HomePage> {
     await Common.checkLogin(context);
   }
 
-
+  _logout() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
+    Navigator.pushNamedAndRemoveUntil(context, "login", (route) => route == null);
+  }
 
   @override
   initState() {
@@ -36,15 +40,20 @@ class HomeState extends State<HomePage> {
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
         appBar: new AppBar(
-          leading: Icon(MyIcon.scan),
+          leading: new GestureDetector(
+            child: Icon(MyIcon.scan),
+            onTap: (){
+              ToastUtil.showCenterShortToast('建设中');
+            },
+          ),
           title: new Text(_title[_tabIndex]),
           centerTitle: true,
           actions: <Widget>[
             new IconButton(
                 icon: new Icon(MyIcon.log_out),
                 onPressed: () {
-                  print('我要退出了,baibai');
-                  Navigator.of(context).pushNamed('cash_success');
+                  _logout();
+
                 })
           ],
         ),
