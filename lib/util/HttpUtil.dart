@@ -48,6 +48,7 @@ class HttpUtil {
         print('get请求取消! ' + e.message);
       }
       print('get请求发生错误：$e');
+      ToastUtil.showCenterShortToast('请求超时');
     }
 
   }
