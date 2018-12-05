@@ -4,12 +4,12 @@ import 'package:quick_pay/util/ToastUtil.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'package:quick_pay/service/user.dart';
 import 'package:common_utils/common_utils.dart';
-class RegisterPage extends StatefulWidget {
+class PasswordPage extends StatefulWidget {
   @override
-  RegisterState createState() => RegisterState();
+  PasswordState createState() => PasswordState();
 }
 
-class RegisterState extends State<RegisterPage> {
+class PasswordState extends State<PasswordPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   TextEditingController accountController = new TextEditingController();
   String _account;
@@ -37,9 +37,9 @@ class RegisterState extends State<RegisterPage> {
       ToastUtil.showCenterShortToast(result['msg'].toString());
     }
   }
-  _register() async{
+  _forgetPassword() async{
     Common.showLoading(context);
-    Map result = await register(_account,_code,_password);
+    Map result = await forgetPassword(_account,_code,_password);
     if(result['status'] == 200){
       ToastUtil.showCenterShortToast(result['msg'].toString());
       new Future.delayed(new Duration(seconds: 2),(){
@@ -77,7 +77,7 @@ class RegisterState extends State<RegisterPage> {
     final form = _formKey.currentState;
     if(form.validate()){
       form.save();
-      _register();
+      _forgetPassword();
     }
   }
   Widget _form() {
@@ -157,7 +157,7 @@ class RegisterState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('注册'),
+        title: new Text('忘记密码'),
         centerTitle: true,
       ),
       body: new Container(

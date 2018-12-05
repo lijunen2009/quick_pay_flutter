@@ -123,7 +123,8 @@ class IndexState extends State<IndexPage> {
                     ],
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                },
               )
             ],
           ),

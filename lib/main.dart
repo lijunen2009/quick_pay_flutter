@@ -14,6 +14,7 @@ import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/views/register.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'package:quick_pay/views/cash_success.dart';
+import 'package:quick_pay/views/password.dart';
 
 void main() => runApp(MyApp());
 
@@ -64,7 +65,8 @@ class MyAppState extends State {
         'my_share': (BuildContext context) => new MySharePage(),
         'login': (BuildContext context) => new LoginPage(),
         'register': (BuildContext context) => new RegisterPage(),
-        'cash_success': (BuildContext context) => new CashSuccessPage()
+        'cash_success': (BuildContext context) => new CashSuccessPage(),
+        'password':(BuildContext context)=>PasswordPage(),
       },
       title: '益点闪',
       theme: ThemeData(

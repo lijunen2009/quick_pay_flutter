@@ -18,12 +18,12 @@ class LoginState extends State {
     final form = _formkey.currentState;
     if (form.validate()) {
       form.save();
-      Common.showLoading(context);
       _login(context);
     }
   }
 
   _login(BuildContext context) async {
+    Common.showLoading(context);
     Map result = await login(_name, _password);
     if (result['status'] == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,6 +31,7 @@ class LoginState extends State {
       Common.closeLoading(context);
       Navigator.of(context).pushReplacementNamed('/homepage');
     } else {
+      Common.closeLoading(context);
       ToastUtil.showCenterShortToast(result['msg']);
     }
   }
@@ -93,10 +94,15 @@ class LoginState extends State {
                   Navigator.of(context).pushNamed('register');
                 },
               ),
-//              new Text(
-//                '忘记密码',
-//                style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),
-//              )
+              new GestureDetector(
+                child: new Text(
+                  '忘记密码',
+                  style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),
+                ),
+                onTap: (){
+                  Navigator.of(context).pushNamed('password');
+                },
+              )
             ],
           ),
         ),
