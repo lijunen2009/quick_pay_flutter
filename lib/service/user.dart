@@ -93,4 +93,31 @@ Future bindBankCard(userId,cardNumber,bankName,city) async{
   return  await HttpUtil().post('user/bindBankCard',data: data);
 }
 
+Future register(account,code,password,{recommendId:''}) async{
+  Map data = {
+    'account':account,
+    'code':code,
+    'password':password,
+    'recommend_id':recommendId
+  };
+  return await HttpUtil().post('user/register',data: data);
+}
+
+Future sendSmsCode(mobile) async{
+  Map data = {
+    'mobile':mobile
+  };
+  return await HttpUtil().post('user/sendSmsCode',data: data);
+}
+
+Future forgetPassword(account,code,password) async{
+  Map data = {
+    'account':account,
+    'code':code,
+    'password':password
+  };
+  return await HttpUtil().post('user/forgetPassword',data: data);
+}
+
+
 

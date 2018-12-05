@@ -1,24 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:quick_pay/util/MyIcon.dart';
-
+import 'package:quick_pay/util/ToastUtil.dart';
+import 'package:quick_pay/util/Common.dart';
+import 'package:quick_pay/service/user.dart';
+import 'package:common_utils/common_utils.dart';
 class RegisterPage extends StatefulWidget {
+  @override
   RegisterState createState() => RegisterState();
 }
 
 class RegisterState extends State<RegisterPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  TextEditingController accountController = new TextEditingController();
   String _account;
   String _code;
   String _password;
+  int timer = 60;
+  String codeButtonText = '发送验证码';
+  @override
+  initState(){
+    super.initState();
+  }
+
+  _sendSmsCode() async{
+    if(accountController.text == null || accountController.text.isEmpty){
+      ToastUtil.showCenterShortToast('请输入手机号');
+      return;
+    }
+    Common.showLoading(context);
+    Map result = await sendSmsCode(accountController.text);
+    Common.closeLoading(context);
+    if(result['status'] == 200){
+      ToastUtil.showCenterShortToast(result['msg'].toString());
+      _timeCountDown();
+    }else{
+      ToastUtil.showCenterShortToast(result['msg'].toString());
+    }
+  }
+  _register() async{
+    Common.showLoading(context);
+    Map result = await register(_account,_code,_password);
+    if(result['status'] == 200){
+      ToastUtil.showCenterShortToast(result['msg'].toString());
+      new Future.delayed(new Duration(seconds: 2),(){
+        Navigator.pushNamedAndRemoveUntil(context, "login", (route) => route == null);
+      });
+
+    }else{
+      Common.closeLoading(context);
+      ToastUtil.showCenterShortToast(result['msg'].toString());
+    }
+  }
+  _timeCountDown(){
+    TimerUtil timerCountDown;
+    //倒计时test
+    if(timer == 60){
+      timerCountDown = new TimerUtil(mInterval: 1000, mTotalTime: 59 * 1000);
+      timerCountDown.setOnTimerTickCallback((int value) {
+        timer--;
+        setState(() {
+          codeButtonText = timer.toString()+'秒后发送';
+        });
+        if(timer == 0){
+          timer = 60;
+          setState(() {
+            codeButtonText = '发送验证码';
+          });
+        }
+//        double tick = (value / 1000);
+//        LogUtil.e("CountDown: " + tick.toInt().toString());
+      });
+      timerCountDown.startCountDown();
+    }
+  }
+
+
   _onSubmit(){
     final form = _formKey.currentState;
     if(form.validate()){
       form.save();
-      showDialog(
-          context: context,
-          builder: (ctx) => new AlertDialog(
-            content: new Text('$_account $_password $_code'),
-          ));
+      _register();
     }
   }
   Widget _form() {
@@ -29,6 +90,7 @@ class RegisterState extends State<RegisterPage> {
       children: <Widget>[
         new TextFormField(
           keyboardType: TextInputType.number,
+          controller: accountController,
           decoration: new InputDecoration(
               icon: new Icon(MyIcon.account),
               labelText: '手机号',
@@ -53,9 +115,11 @@ class RegisterState extends State<RegisterPage> {
               )),
               new RaisedButton(
                 onPressed: (){
-
+                  if(timer == 60){
+                    _sendSmsCode();
+                  }
                 },
-                child: new Text('发送验证码'),
+                child: new Text(codeButtonText),
                 textColor: Color.fromRGBO(255, 255, 255, 1),
                 color: Colors.blue
               )

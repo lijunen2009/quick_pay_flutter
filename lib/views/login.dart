@@ -93,10 +93,10 @@ class LoginState extends State {
                   Navigator.of(context).pushNamed('register');
                 },
               ),
-              new Text(
-                '忘记密码',
-                style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),
-              )
+//              new Text(
+//                '忘记密码',
+//                style: new TextStyle(color: Color.fromRGBO(153, 153, 153, 1)),
+//              )
             ],
           ),
         ),

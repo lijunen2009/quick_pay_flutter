@@ -85,7 +85,6 @@ class AuthCardState extends State{
         ToastUtil.showCenterShortToast('请选择开户城市');
         return;
       }
-
       _bindBankCard();
 //      showDialog(context: context,builder: (r)=>new AlertDialog(content: new Text('$_cardNo'),));
     }
