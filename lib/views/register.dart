@@ -43,6 +43,7 @@ class RegisterState extends State<RegisterPage> {
     if(result['status'] == 200){
       ToastUtil.showCenterShortToast(result['msg'].toString());
       new Future.delayed(new Duration(seconds: 2),(){
+        Common.closeLoading(context);
         Navigator.pushNamedAndRemoveUntil(context, "login", (route) => route == null);
       });
 

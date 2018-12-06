@@ -15,6 +15,7 @@ import 'package:quick_pay/views/register.dart';
 import 'package:quick_pay/views/cash_success.dart';
 import 'package:quick_pay/views/password.dart';
 import 'package:quick_pay/views/splash_page.dart';
+import 'package:quick_pay/util/Common.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -27,6 +28,8 @@ class MyAppState extends State {
   @override
   initState() {
     super.initState();
+    Common.checkNetwork();
+
   }
 
   // This widget is the root of your application.

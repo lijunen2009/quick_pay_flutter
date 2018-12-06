@@ -46,8 +46,8 @@ class WalletLogState extends State {
   _listBalanceLog() async {
     Common.showLoading(context);
     Map result = await listBalanceLog(token['id'], _currPage, _pageNumber);
+    Common.closeLoading(context);
     if (result['status'] == 200) {
-      Common.closeLoading(context);
       for (var value in result['result']['list']) {
         list.add(value);
       }
@@ -68,7 +68,10 @@ class WalletLogState extends State {
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   Widget _buildMoney(String money, type) {

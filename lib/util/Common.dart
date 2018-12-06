@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'dart:async';
+import 'package:connectivity/connectivity.dart';
+import 'package:quick_pay/util/ToastUtil.dart';
 class Common {
 
   static void showLoading(BuildContext context) {
@@ -39,5 +42,22 @@ class Common {
     String token = prefs.getString('token');
     return json.decode(token);
   }
+
+  static checkNetwork() async{
+    var connectivityResult = await (new Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+      return 'mobile';
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+      return 'wifi';
+    }else{
+      ToastUtil.showLongToast('无网络连接，请检查网络设置');
+      return 'no_network';
+    }
+  }
+
+
+
 }
 

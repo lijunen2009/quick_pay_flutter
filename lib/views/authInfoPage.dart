@@ -21,8 +21,8 @@ class AuthInfoState extends State<AuthInfoPage> {
   _getAuthInfo() async {
     Common.showLoading(context);
     Map result = await getAuthInfo(token['id']);
+    Common.closeLoading(context);
     if (result['status'] == 200) {
-      Common.closeLoading(context);
       setState(() {
         isIdAuth = result['result']['is_id_auth'] == 1 ? true : false;
         isCardAuth = result['result']['is_card_auth'] == 1 ? true : false;
@@ -35,7 +35,10 @@ class AuthInfoState extends State<AuthInfoPage> {
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   Widget build(BuildContext context) {

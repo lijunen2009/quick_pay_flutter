@@ -13,7 +13,11 @@ class LoginState extends State {
   String _name = '';
   String _password = '';
   GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
-
+  @override
+  initState(){
+    super.initState();
+    Common.checkNetwork();
+  }
   _onSubmit(BuildContext context) {
     final form = _formkey.currentState;
     if (form.validate()) {

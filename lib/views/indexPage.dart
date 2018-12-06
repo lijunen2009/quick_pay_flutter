@@ -21,8 +21,8 @@ class IndexState extends State<IndexPage> {
   _countUserBalance() async {
     Common.showLoading(context);
     Map result = await countUserBalance(token['id']);
+    Common.closeLoading(context);
     if (result['status'] == 200) {
-      Common.closeLoading(context);
       setState(() {
         balance = result['result'];
       });
@@ -35,7 +35,11 @@ class IndexState extends State<IndexPage> {
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    print(networkState);
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   Widget toper(BuildContext context) {

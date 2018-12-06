@@ -12,7 +12,10 @@ class MyCardState extends State{
   @override
   initState(){
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   _init() async{
@@ -25,8 +28,8 @@ class MyCardState extends State{
   _listBankCard() async{
     Common.showLoading(context);
     Map result =  await listBankCard(token['id']);
+    Common.closeLoading(context);
     if(result['status'] == 200){
-      Common.closeLoading(context);
       setState(() {
         if(result['result']['list'].length > 0){
           cardInfo = result['result']['list'][0];

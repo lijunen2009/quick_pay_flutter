@@ -35,7 +35,10 @@ class WalletState extends State<WalletPage> {
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   Widget top(BuildContext context) {

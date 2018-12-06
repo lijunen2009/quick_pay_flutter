@@ -20,7 +20,10 @@ class CashLogState extends State {
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   _init() async {

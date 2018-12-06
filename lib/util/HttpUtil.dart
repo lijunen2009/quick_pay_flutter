@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:quick_pay/config/config.dart';
-import 'package:quick_pay/util/ToastUtil.dart';
 class HttpUtil {
   static HttpUtil instance;
   Dio dio;
@@ -48,12 +47,23 @@ class HttpUtil {
         print('get请求取消! ' + e.message);
       }
       print('get请求发生错误：$e');
-      ToastUtil.showCenterShortToast('请求超时');
+      return {
+        'status':500,
+        'msg':'网络连接错误'
+      };
     }
 
   }
 
   post(url, {data, options, cancelToken}) async {
+//    String networkStatus = await _checkNetwork();
+//    if(networkStatus == 'no_network'){
+//      return {
+//        'status':501,
+//        'msg':'无网络连接'
+//      };
+//    }
+
     // print('post请求启动! url：$url ,body: $data');
     Response response;
     try {
@@ -69,7 +79,10 @@ class HttpUtil {
         print('post请求取消! ' + e.message);
       }
       print('post请求发生错误：$e');
-      ToastUtil.showCenterShortToast('请求超时');
+      return {
+        'status':500,
+        'msg':'网络连接错误'
+      };
     }
 
   }

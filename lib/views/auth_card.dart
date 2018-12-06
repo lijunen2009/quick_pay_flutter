@@ -23,7 +23,11 @@ class AuthCardState extends State{
   void initState() {
     // TODO: implement initState
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
+
   }
 
   _init() async{

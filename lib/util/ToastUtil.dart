@@ -2,7 +2,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ToastUtil {
   static void showLongToast(String msg) {
-    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_LONG);
+    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_LONG,timeInSecForIos: 5);
   }
 
   static void showColoredToast(String msg, String bgcolor, String textcolor) {

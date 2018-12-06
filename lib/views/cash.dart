@@ -15,7 +15,10 @@ class CashState extends State<CashPage>{
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
   _init() async {
     await Common.checkLogin(context);

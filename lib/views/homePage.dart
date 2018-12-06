@@ -32,7 +32,10 @@ class HomeState extends State<HomePage> {
   @override
   initState() {
     super.initState();
-    _init();
+    var networkState = Common.checkNetwork();
+    if(networkState != 'no_network'){
+      _init();
+    }
   }
 
   Widget build(BuildContext context) {

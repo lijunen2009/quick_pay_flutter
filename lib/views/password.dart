@@ -20,6 +20,8 @@ class PasswordState extends State<PasswordPage> {
   @override
   initState(){
     super.initState();
+    Common.checkNetwork();
+
   }
 
   _sendSmsCode() async{
@@ -58,14 +60,18 @@ class PasswordState extends State<PasswordPage> {
       timerCountDown = new TimerUtil(mInterval: 1000, mTotalTime: 59 * 1000);
       timerCountDown.setOnTimerTickCallback((int value) {
         timer--;
-        setState(() {
-          codeButtonText = timer.toString()+'秒后发送';
-        });
-        if(timer == 0){
-          timer = 60;
+        if(mounted) {
           setState(() {
-            codeButtonText = '发送验证码';
+            codeButtonText = timer.toString() + '秒后发送';
           });
+        }
+        if(timer == 1){
+          timer = 60;
+          if(mounted) {
+            setState(() {
+              codeButtonText = '发送验证码';
+            });
+          }
         }
       });
       timerCountDown.startCountDown();
