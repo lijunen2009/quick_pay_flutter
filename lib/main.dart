@@ -12,10 +12,9 @@ import 'package:quick_pay/views/my_team.dart';
 import 'package:quick_pay/views/my_share.dart';
 import 'package:quick_pay/views/login.dart';
 import 'package:quick_pay/views/register.dart';
-import 'package:quick_pay/util/Common.dart';
 import 'package:quick_pay/views/cash_success.dart';
 import 'package:quick_pay/views/password.dart';
-
+import 'package:quick_pay/views/splash_page.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -24,27 +23,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State {
-  bool _isLogin = false;
+
   @override
   initState() {
     super.initState();
-    _setLoginState();
-  }
-  _setLoginState() async {
-    var flag = await Common.checkLogin(context, isJump: false);
-    if (flag) {
-      setState(() {
-        _isLogin = true;
-      });
-    }
-  }
-
-  _init() {
-    if (_isLogin) {
-      return new HomePage();
-    } else {
-      return new LoginPage();
-    }
   }
 
   // This widget is the root of your application.
@@ -82,7 +64,7 @@ class MyAppState extends State {
         primaryColor: Colors.lightBlue[800],
         accentColor: Colors.cyan[600],
       ),
-      home: _init(),
+      home: new SplashPage(),
     );
   }
 }

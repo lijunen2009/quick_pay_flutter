@@ -10,6 +10,11 @@ class MyCardState extends State{
   Map token;
   Map cardInfo;
   @override
+  initState(){
+    super.initState();
+    _init();
+  }
+
   _init() async{
     await Common.checkLogin(context);
     token = await Common.getToken();
@@ -34,10 +39,6 @@ class MyCardState extends State{
     }
   }
 
-  initState(){
-    super.initState();
-    _init();
-  }
   _body(){
     if(cardInfo != null && cardInfo['card_number'] != null){
       return new Container(
