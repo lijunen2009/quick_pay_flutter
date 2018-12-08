@@ -117,11 +117,12 @@ class LoginState extends State {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('登录'),
-          centerTitle: true,
-        ),
+//        appBar: new AppBar(
+//          title: new Text('登录'),
+//          centerTitle: true,
+//        ),
         body: new Container(
+            margin: new EdgeInsets.only(top:60.0),
             padding: new EdgeInsets.all(15.0),
             color: Color.fromRGBO(255, 255, 255, 1),
             child: _body(context)));

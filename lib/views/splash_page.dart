@@ -6,7 +6,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class SplashState extends State {
-  int timer = 6;
+  int timer = 4;
   bool _isLogin = false;
   @override
   initState(){
@@ -18,9 +18,11 @@ class SplashState extends State {
   _setLoginState() async {
     var flag = await Common.checkLogin(context, isJump: false);
     if (flag) {
-      setState(() {
-        _isLogin = true;
-      });
+      if(mounted) {
+        setState(() {
+          _isLogin = true;
+        });
+      }
     }
   }
 
@@ -35,11 +37,13 @@ class SplashState extends State {
   void _countDown(){
     TimerUtil countDown = new TimerUtil();
     countDown.setInterval(1000);
-    countDown.setTotalTime(4*1000);
+    countDown.setTotalTime(3*1000);
     countDown.setOnTimerTickCallback((int value){
-      setState(() {
-        timer = timer;
-      });
+      if(mounted) {
+        setState(() {
+          timer = timer;
+        });
+      }
       timer--;
       if(timer == 1){
         _goHomePage();
