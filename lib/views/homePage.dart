@@ -37,7 +37,10 @@ class HomeState extends State<HomePage> {
       _init();
     }
   }
-
+  _scan() async{
+    Map scsnResult = await Common.scan();
+    print(scsnResult);
+  }
   Widget build(BuildContext context) {
     return new Scaffold(
         backgroundColor: Color.fromRGBO(238, 238, 238, 1),
@@ -45,7 +48,8 @@ class HomeState extends State<HomePage> {
           leading: new GestureDetector(
             child: Icon(MyIcon.scan),
             onTap: (){
-              ToastUtil.showCenterShortToast('建设中');
+              _scan();
+//              ToastUtil.showCenterShortToast('建设中');
             },
           ),
           title: new Text(_title[_tabIndex]),

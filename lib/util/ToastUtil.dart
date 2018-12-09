@@ -9,8 +9,9 @@ class ToastUtil {
     Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
-        bgcolor: bgcolor,
-        textcolor: textcolor);
+//        bgcolor: bgcolor,
+//        textcolor: textcolor
+    );
   }
 
   static void showShortToast(String msg) {
@@ -32,8 +33,8 @@ class ToastUtil {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 2,
-        bgcolor: '#000000',
-        textcolor: '#ffffff'
+//        bgcolor: '#000000',
+//        textcolor: '#ffffff'
     );
   }
 }

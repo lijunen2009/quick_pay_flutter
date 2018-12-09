@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.15.7
   connectivity: ^0.3.2
   common_utils: ^1.0.9
+  barcode_scan: ^0.0.8
 
 
 

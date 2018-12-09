@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:quick_pay/util/ToastUtil.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/services.dart';
 class Common {
 
   static void showLoading(BuildContext context) {
@@ -54,6 +56,47 @@ class Common {
     }else{
       ToastUtil.showLongToast('无网络连接，请检查网络设置');
       return 'no_network';
+    }
+  }
+
+  static Future scan() async {
+    try {
+      String barcode = await BarcodeScanner.scan();
+
+      return {
+        'status':200,
+        'msg':'扫码成功',
+        'result':barcode
+      };
+    } on PlatformException catch (e) {
+      print(e);
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        return {
+          'status':200,
+          'msg':'没有相机权限',
+          'result':''
+        };
+
+      } else {
+        return {
+          'status':200,
+          'msg':'未知错误:${e.toString()}',
+          'result':''
+        };
+
+      }
+    } on FormatException{
+      return {
+        'status':200,
+        'msg':'用户取消',
+        'result':''
+      };
+    } catch (e) {
+      return {
+        'status':200,
+        'msg':'未知错误:${e.toString()}',
+        'result':''
+      };
     }
   }
 
