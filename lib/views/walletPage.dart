@@ -126,6 +126,39 @@ class WalletState extends State<WalletPage> {
               Navigator.of(context).pushNamed('my_card');
             },
           ),
+          new Divider(
+            color: Color.fromRGBO(204, 204, 204, 1),
+          ),
+          new ListTile(
+            title: new Text('地图'),
+            leading: new Icon(Icons.map),
+            trailing: new Icon(Icons.arrow_right),
+            onTap: (){
+              Navigator.of(context).pushNamed('map');
+            },
+          ),
+          new Divider(
+            color: Color.fromRGBO(204, 204, 204, 1),
+          ),
+          new ListTile(
+            title: new Text('地图2'),
+            leading: new Icon(Icons.map),
+            trailing: new Icon(Icons.arrow_right),
+            onTap: (){
+              Navigator.of(context).pushNamed('map2');
+            },
+          ),
+          new Divider(
+            color: Color.fromRGBO(204, 204, 204, 1),
+          ),
+          new ListTile(
+            title: new Text('地图3'),
+            leading: new Icon(Icons.map),
+            trailing: new Icon(Icons.arrow_right),
+            onTap: (){
+              Navigator.of(context).pushNamed('drawling');
+            },
+          ),
         ],
       ),
     );

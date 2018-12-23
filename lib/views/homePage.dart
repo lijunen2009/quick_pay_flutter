@@ -4,7 +4,6 @@ import 'package:quick_pay/views/walletPage.dart';
 import 'package:quick_pay/views/settingPage.dart';
 import 'package:quick_pay/util/MyIcon.dart';
 import 'package:quick_pay/util/Common.dart';
-import 'package:quick_pay/util/ToastUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class HomePage extends StatefulWidget {
   @override

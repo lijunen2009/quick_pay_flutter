@@ -5,6 +5,8 @@ import 'package:quick_pay/util/ToastUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quick_pay/util/Common.dart';
 import 'dart:convert';
+import 'package:fluwx/fluwx.dart' as fluwx;
+
 class LoginPage extends StatefulWidget {
   LoginState createState() => LoginState();
 }
@@ -39,7 +41,11 @@ class LoginState extends State {
       ToastUtil.showCenterShortToast(result['msg']);
     }
   }
-
+  _weixinLogin(){
+    fluwx.register(appId:"wxd930ea5d5a258f4f");
+    fluwx.sendAuth(
+        scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
+  }
   Widget _body(BuildContext context) {
     return new ListView(
       children: <Widget>[
@@ -110,6 +116,14 @@ class LoginState extends State {
             ],
           ),
         ),
+        new Container(
+          child: new GestureDetector(
+            child: new Text('微信登录'),
+            onTap: (){
+              _weixinLogin();
+            },
+          ),
+        )
 
       ],
     );

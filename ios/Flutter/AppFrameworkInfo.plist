@@ -22,5 +22,10 @@
   <string>1.0</string>
   <key>MinimumOSVersion</key>
   <string>8.0</string>
+  <!-- 相机 -->
+  <key>NSCameraUsageDescription</key>
+  <string>App需要您的同意,才能访问相机</string>
+  <key>NSCameraUsageDescription</key>
+  <string>cameraDesciption</string>
 </dict>
 </plist>

@@ -16,7 +16,13 @@ import 'package:quick_pay/views/cash_success.dart';
 import 'package:quick_pay/views/password.dart';
 import 'package:quick_pay/views/splash_page.dart';
 import 'package:quick_pay/util/Common.dart';
-void main() => runApp(MyApp());
+import 'package:quick_pay/views/map.dart';
+import 'package:quick_pay/views/map2.dart';
+import 'package:quick_pay/views/draw_polyline.screen.dart';
+//void main() => runApp(MyApp());
+void main(){
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -52,6 +58,9 @@ class MyAppState extends State {
         'register': (BuildContext context) => new RegisterPage(),
         'cash_success': (BuildContext context) => new CashSuccessPage(),
         'password':(BuildContext context)=>PasswordPage(),
+        'map':(BuildContext context)=>MapPage(),
+        'map2':(BuildContext context)=>DrawPointScreen(),
+        'drawling':(BuildContext context)=>DrawPolylineScreen()
       },
       title: '益点闪',
       theme: ThemeData(

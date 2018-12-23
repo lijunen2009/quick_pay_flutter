@@ -1,3 +1,3 @@
 Map config = {
-  'baseUrl':'https://api.quick.nmpos.net/home/frontend/',
+  'baseUrl':'https://api.quick.nmyd168.com/home/frontend/',
 };
