@@ -51,8 +51,8 @@ class MapState extends State<MapPage> {
   }
 
   _call() async{
-//    await launch('tel:+10010');
-    await launch('https://www.baidu.com');
+    await launch('tel:10010');
+//    await launch('https://www.baidu.com');
   }
   _init() async{
     await AMap.init(amapKey);
@@ -110,7 +110,7 @@ class MapState extends State<MapPage> {
           zoomControlsEnabled:true,
           camera: CameraPosition(
           target: new LatLng(lat, lng),
-          zoom: 10
+          zoom: 14
         ),
 
       ),

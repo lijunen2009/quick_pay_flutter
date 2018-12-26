@@ -33,6 +33,7 @@ dependencies:
   fluwx: ^0.5.2
   amap_base: ^0.2.8
   url_launcher: ^4.0.3
+  scoped_model: ^1.0.1
 
 
 
